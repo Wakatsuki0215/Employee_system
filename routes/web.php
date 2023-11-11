@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\LoginController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +14,27 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+// ログイン
+Route::get('/login', function () {
+    return view('login');
+});
+Route::post('/login',[LoginController::class,'login']);
+
+// ログアウト
+
+
+
+// 社員名簿一覧
+
+Route::middleware('auth')->group(function (){
+    Route::get('/list',[\App\Http\Controllers\LoginController::class,'list'])->name('list');
+});
+
+Route::get('/list', function () {
+    // 認証済みユーザーのみがこのルートにアクセス可能
+})->middleware('auth.basic');
+
+
+Route::get('/list', function () {
+    return view('list');
 });
