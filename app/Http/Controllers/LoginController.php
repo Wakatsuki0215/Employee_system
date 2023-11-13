@@ -18,7 +18,7 @@ class LoginController extends Controller
     {
         $request_base = $request->all();
         $credentials = [
-            'mail' => $request['email'],
+            'id' => $request['id'],
             'password' => $request['password']
         ];
         if (Auth::attempt($credentials)) {
@@ -30,4 +30,13 @@ class LoginController extends Controller
             'email' => 'The provided credentials do not match our records.',
         ])->onlyInput('email');
     }
+ 
+    public function logout(Request $request): RedirectResponse
+    {
+        Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerate();
+        return redirect('login');
+    }
+    
 }
