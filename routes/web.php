@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\EmployeeController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\LogoutController;
@@ -19,29 +20,16 @@ use App\Http\Controllers\LogoutController;
 Route::get('/login', function () {
     return view('login');
 });
+
 Route::post('/login',[LoginController::class,'login']);
 
 
-// ログアウト
-
-
-// Route::middleware(['auth', 'auth.session'])->group(function () {
-//     Route::get('/login', function () {
-//         // ...
-//     });
-// });
-
-
-// 社員名簿一覧
-Route::middleware('auth')->group(function (){
-    Route::get('/list',[\App\Http\Controllers\LoginController::class,'list'])->name('list');
-    Route::post('/logout',[\App\Http\Controllers\LoginController::class,'logout']);
+Route::middleware('auth')->group(function ()
+{
+    Route::get('/employee_list',[EmployeeController::class,'index'])->name('index');
+           
+    Route::post('/logout',[LoginController::class,'logout']); //ログアウト
 });
 
-Route::get('/list', function () {
-    // 認証済みユーザーのみがこのルートにアクセス可能
-})->middleware('auth.basic');
 
-Route::get('/list', function () {
-    return view('list');
-});
+
