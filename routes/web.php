@@ -41,12 +41,12 @@ Route::group(['middleware' => 'auth'],function(){
 	//一覧
 	Route::get('/employee_list',[EmployeeController::class,'index'])->name('index');
 	//登録
-	Route::get('/employee_add',[EmployeeController::class,'new'])->name('new');
-	Route::post('/employee_add',[EmployeeController::class,'create'])->name('create');
+	Route::get('/employee',[EmployeeController::class,'new'])->name('new');
+	Route::post('/employee',[EmployeeController::class,'create'])->name('create');
 	//詳細
-
+	// Route::get('',[EmployeeController::class,'show'])->name('show');
 	//編集
-
+	// Route::get('',[EmployeeController::class,'edit'])->name('edit');
 	//ログアウト
 	Route::get('/logout',[LoginController::class,'logout']);
 });
