@@ -25,23 +25,11 @@ class LoginController extends Controller
 
             $data = $request->session()->all();
 
-            // $user = Auth::id();
-            // $user = Auth::getName();
-            // //session データ取得（ID,name,affiliation,role）
-            // $request->session()->get([
-            //     'id' => 'id',
-            //     'name' => 'name',
-            //     'affiliation_id' => 'affiliation_id',
-            //     'role' => 'role',
-            // ]);
-
-            // //session データ保存
-            // $request->session()->put([
-            //     'id' => 'id',
-            //     'name' => 'name',
-            //     'affiliation_id' => 'affiliation_id',
-            //     'role' => 'role',
-            // ]);
+            //session データ取得（ID,name,affiliation,role）
+            $id = Auth::id();
+            $name = auth() -> user() -> name;
+            $affiliation = auth() -> user() -> affiliation_id;
+            $role = auth() -> user() -> role;
 
             return redirect('employee_list');
         }
