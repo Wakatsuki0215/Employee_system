@@ -15,7 +15,9 @@
 
 <body>
 	<header>
-		@include('layouts.header')
+		<div class="navbar navbar-expand-lg navbar-light" style="background-color:#e3f2fd;">
+			<h2>社員管理システム</h2>
+		</div>
 	</header>
 
 	<div class="container">
@@ -31,25 +33,36 @@
 		</div>
 		@endif
 	</div>
-	<div class="container">
-		<div class="">
-			<form action={{ url('/login') }} method="post">
-				@csrf
-				<div class="row mb-3 align-items-center">
-					<label for="id" class="col-2">社員番号</label>
-					<div class="col-sm-10">
-						<input type="text" name="id" id="id">
-					</div>
+	</br>
+	</br>
+	<div class="container d-flex align-items-center justify-content-center ">
+		<form action={{ url('/login') }} method="post">
+			@csrf
+			<div class="row">
+				<div class="col-5 text-end">
+					<label for="id" class="text-end">社員番号</label>
 				</div>
-				<div class="row mb-3 align-items-center">
-					<label for="password" class="col-2">パスワード</label>
-					<div class="col-sm-10">
-						<input type="password" name="password" id="password">
-					</div>
+				<div class="col-7">
+					<input type="text" name="id" id="id">
 				</div>
-				<button class="btn btn-primary" type="submit">ログイン</button>
-			</form>
-		</div>
+			</div>
+			</br>
+			<div class="row">
+				<div class="col-5 text-end">
+					<label for="password">パスワード</label>
+				</div>
+				<div class="col-7">
+					<input type="password" name="password" id="password">
+				</div>
+			</div>
+			</br>
+			<div class="row">
+				<div class="text-center">
+					<button class="btn btn-primary" type="submit">ログイン</button>
+				</div>
+			</div>
+		</form>
+
 	</div>
 </body>
 
