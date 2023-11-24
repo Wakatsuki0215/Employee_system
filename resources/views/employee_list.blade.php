@@ -1,9 +1,8 @@
-@include('layouts.header')
+@include('components.header')
 <h4>社員名簿一覧</h4>
 <!-- 検索条件　入力フォーム -->
-<div>
-  <form action="{{ route('index') }}" method="GET">
-    @csrf
+<div class="container d-flex align-items-center justify-content-center p-3 mb-2 bg-secondary text-white">
+  <form action={{url('/employee_list')}} method="GET">
     <!-- 名前検索 -->
     <label for="name">名前</label>
     <input type="text" name="name">
@@ -41,39 +40,44 @@
     <label for="status">無効を含む</label>
 
     <!-- クリア・検索ボタン -->
-    <input type=reset class="btn btn-secondary"  value="クリア">
+    <input type=reset class="btn btn-secondary" value="クリア">
     <input type=submit class="btn btn-primary" value="検索">
   </form>
 </div>
 
 <!-- 新規登録画面　遷移ボタン -->
-<form action={{ url('/employee')}} method="get">
-  @csrf
-  <input type=submit class="btn btn-outline-primary" value="新規作成">
-</form>
+<div class="container">
+  <div class="row">
+    <form action={{ url('/employee_add')}} method="get">
+      <input type=submit class=" btn btn-primary" value="新規作成">
+    </form>
+  </div>
+</div>
 
 
 <!-- 社員一覧表示 -->
-<table>
-  <tr>
-    <th>名前</th>
-    <th>性別</th>
-    <th>所属</th>
-    <th>メールアドレス</th>
-    <th>電話番号</th>
-    <th></th>
-  </tr>
+<div class="container d-flex align-items-center justify-content-center">
+  <table>
+    <tr>
+      <th>名前</th>
+      <th>性別</th>
+      <th>所属</th>
+      <th>メールアドレス</th>
+      <th>電話番号</th>
+      <th></th>
+      <th></th>
+    </tr>
 
-  @foreach ($response['employees'] as $employee)
-  <tr>
-    <td>{{ $employee->name }}</td>
-    <td>{{ $employee->gender }}</td>
-    <td>{{ $employee->affiliation_id }}
-      {{ App\Enums\AffiliationType::getDescription(1) }}
-    </td>
-    <td>{{ $employee->mail }}</td>
-    <td>{{ $employee->tel }}</td>
-    <td></td>
-  </tr>
-  @endforeach
-</table>
+    @foreach ($response['employees'] as $employee)
+    <tr>
+      <td>{{ $employee->name }}</td>
+      <td>{{ \App\Enums\Gender::getDescription($employee->gender) }}</td>
+      <td>{{ \App\Enums\Affiliation::getDescription($employee->affiliation_id) }}</td>
+      <td>{{ $employee->mail }}</td>
+      <td>{{ $employee->tel }}</td>
+      <td></td>
+      <td><a href="/employee_edit/{{$employee->id}}" class="text-success">✏</a></td>
+    </tr>
+    @endforeach
+  </table>
+</div>
