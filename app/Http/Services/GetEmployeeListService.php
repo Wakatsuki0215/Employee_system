@@ -3,7 +3,7 @@ namespace App\Http\Services;
 
 use App\Models\EmployeeMaster;
 use App\Models\AffiliationMaster;
-
+use Illuminate\Contracts\View\View;
 
 class GetEmployeeListService
 {
@@ -14,7 +14,9 @@ class GetEmployeeListService
 
         // 名前
         if(!empty($data['name'])){
-            $employee_query->where('name', 'LIKE', "%{$data['name']}%");
+            $employee_query
+            ->where('name', 'LIKE', "%{$data['name']}%")
+            ->orWhere('kana', 'LIKE', "%{$data['name']}%");
         }
 
         // 性別
@@ -40,20 +42,26 @@ class GetEmployeeListService
         // end
 
         // 部署情報取得 start
-        $affiliation_query = AffiliationMaster::query()->get();
+        $affiliation_query = AffiliationMaster::query();
         if(!empty($data['affiliation_name'])){
             $affiliation_query->where('affiliation_name', $data['affiliation_name']);
         }
+        $affiliations = $affiliation_query->get();
         // end
 
         return [
             'employees' => $employees,
             // 部署
-            'affiliations' => '',
+            'affiliations' => $affiliations,
             // 検索条件
             'search' => [
             ]
         ];
+    }
+
+    public function paginated($data)
+    {
+        return EmployeeMaster::paginate(5);
     }
 
 }
