@@ -16,10 +16,7 @@
 <form action="{{ url('/employee_edit', $employee->id) }}" method="post">
 @csrf
 @method('PUT')
-  <label for="id">社員番号</label>
-	<input type="text" name="id" value="{{ isset($employee) ? $employee->id : '' }} " readonly></br>
 	<!-- 入力フォームパーツ読み出し部分 -->
 	@include('components.employee_form')
-	<a type="button" class="btn btn-secondary" href={{ url('/employee_list') }}>戻る</a>
 	<input type="submit" class="btn btn-success" value="保存">
 </form>
