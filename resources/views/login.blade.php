@@ -9,17 +9,22 @@
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 	<!-- JavaScript Bundle with Popper -->
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-	<link rel="stylesheet" href="{{ asset('css/app.css') }}">
+	<link rel="stylesheet" href="{{ asset('/css/app.css') }}">
+	<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+	<script src="js/password_modal.js"></script>
+
+
+	<!-- bootstrap icon -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 	<title>ログイン画面</title>
 </head>
 
 <body>
 	<header>
-		<div class="navbar navbar-expand-lg navbar-light" style="background-color:#e3f2fd;">
-			<h2>社員管理システム</h2>
+		<div class="header-title">
+			<h3>社員管理システム</h3>
 		</div>
 	</header>
-
 	<div class="container">
 		<div class="center-block">
 			@if ($errors->any())
@@ -33,9 +38,7 @@
 		</div>
 		@endif
 	</div>
-	</br>
-	</br>
-	<div class="container d-flex align-items-center justify-content-center ">
+	<div class="container login-form">
 		<form action={{ url('/login') }} method="post">
 			@csrf
 			<div class="row">
@@ -58,12 +61,12 @@
 			</br>
 			<div class="row">
 				<div class="text-center">
-					<button class="btn btn-primary" type="submit">ログイン</button>
+					<button class="btn btn-primary bi-arrow-return-right login-button" type="submit"> ログイン</button>
 				</div>
 			</div>
 		</form>
-
 	</div>
+
 </body>
 
 </html>
