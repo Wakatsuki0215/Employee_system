@@ -7,17 +7,18 @@
 
 <header>
   <nav class="navbar navbar-expand-lg navbar-light" style="background-color:#e3f2fd;">
-    <h2>社員管理システム</h2>
+    <h3><a href="/employee_list" style="color:black;">社員管理システム</a></h3>
     <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
       <ul class="navbar-nav">
         <li class="nav-item dropdown">
-          <a class="text-muted" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              {{ Auth::user()->name; }}<!-- ログインユーザーの名前表示 -->
-          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-            <a class="dropdown-item" href="#">マイページ</a>
-            <a class="dropdown-item" href="#">パスワード</a>
-            <a class="dropdown-item" href="/logout">ログアウト</a>
-          </div>
+          ログインユーザー：
+          <a class="text-muted" href="#" id="navbarSupportedContent" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            {{ Auth::user()->name; }}<!-- ログインユーザーの名前表示 -->
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+              <a class="dropdown-item" href={{ url('/employee_show') }}>マイページ</a>
+              <a class="dropdown-item" href="#">パスワード</a>
+              <a class="dropdown-item" href="/logout">ログアウト</a>
+            </div>
         </li>
         </li>
       </ul>
