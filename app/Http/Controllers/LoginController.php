@@ -3,51 +3,34 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\LoginRequest;
-use Illuminate\Auth\Events\Login;
-use Illuminate\Http\Request;
+use App\http\Services\PostLoginService;
+use App\http\Services\PostLogoutService;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Auth\Events\Login;
 use Illuminate\Support\Facades\Auth;
+
 
 class LoginController extends Controller
 {
-    /**
-     * 認証の試行を処理
-     */
-
-    public function login(LoginRequest $request): RedirectResponse
+    public function login(LoginRequest $request,PostLoginService $service): RedirectResponse
     {
-        $credentials = [
-            'id' => $request['id'],
-            'password' => $request['password']
-        ];
-        if (Auth::attempt($credentials)) {
-            $request->session()->regenerate();
-
-            $data = $request->session()->all();
-
-            //session データ取得（ID,name,affiliation,role）
-            $id = Auth::id();
-            $name = auth() -> user() -> name;
-            $affiliation = auth() -> user() -> affiliation_id;
-            $role = auth() -> user() -> role;
-
+        // ログイン
+        // 入力した id, passwordを取得
+        $data = $request->all();
+        // PostLoginServiceクラスに渡す
+        $result = $service->postLogin($data);
+        if ($result) {
             return redirect('employee_list');
+        }else{
+            return back()->withErrors('ログインに失敗しました。社員番号もしくはパスワードが違います。');
         }
-
-        return back()->withErrors([
-            'email' => 'ログインに失敗しました。社員番号もしくはパスワードが違います。',
-        ])->onlyInput('email');
     }
 
-    public function logout(Request $request): RedirectResponse
+    public function logout(PostLogoutService $service): RedirectResponse
     {
-        Auth::logout();
-        $request->session()->invalidate();
-        $request->session()->regenerate();
-
-        //session データ削除
-        $request->session()->flush();
-
+        //ログアウト
+        $logout = $service->postLogout();
+        // 画面遷移
         return redirect('login');
     }
 }
