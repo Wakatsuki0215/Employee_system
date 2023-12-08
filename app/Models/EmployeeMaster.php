@@ -32,7 +32,6 @@ class EmployeeMaster extends Authenticatable
         'tel',
         'role',
         'status',
-        'password',
         'created_by',
         'created_at',
         'updated_by',
@@ -56,7 +55,6 @@ class EmployeeMaster extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
-        'password' => 'hashed',
     ];
 
 
