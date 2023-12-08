@@ -1,0 +1,21 @@
+ul li {
+    list-style: none;
+}
+
+label {
+    margin-right: 10px;
+    width:150px;
+}
+
+.form_button{
+    margin-left: 10px;
+}
+
+#password {
+    box-sizing: border-box;
+    padding-right: 2.4em;
+}
+#toggleIcon {
+    position: relative;
+    left: -2.2em;
+  }
