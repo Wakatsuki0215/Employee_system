@@ -25,7 +25,7 @@ class PostEmployeeService
     $employee->tel = $data['tel'];
     $employee->role = $data['role'];
     $employee->status = $data['status'];
-    $employee->password = Hash::make('password');
+    $employee->password = Hash::make('password');//ハッシュ化の桁数指定
     // end
 
     //保存
