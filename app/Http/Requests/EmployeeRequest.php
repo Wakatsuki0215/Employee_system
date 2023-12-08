@@ -3,22 +3,13 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use App\Models\AffiliationMaster;
 use App\Rules\PasswordCustom;
-use PHPUnit\Framework\ComparisonMethodDoesNotDeclareBoolReturnTypeException;
-
-use Illuminate\Support\Facades\Validator;
-// use Illuminate\Validation\Rule;
-use function Laravel\Prompts\password;
 
 class EmployeeRequest extends FormRequest
 {
 	public function rules(): array
 	{
-		return [
-			/**
-			 *
-			 */
+	return [
 			// 名前：必須、上限30文字,日本語（漢字・ひらがな・カタカナのみ）
 			'name' => ['required', 'max:30', 'regex:/^[ぁ-んァ-ヶ一-龥々]+$/u'],
 			// ひらがな：必須、上限30文字、ひらがなのみ
