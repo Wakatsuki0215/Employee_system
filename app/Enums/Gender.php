@@ -1,6 +1,9 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace App\Enums;
+
 
 use BenSampo\Enum\Enum;
 
@@ -15,7 +18,7 @@ final class Gender extends Enum
     const Female = 'female';
 
     // 以下、日本語のラベルを追加する
-    public static function getDescription($value): string
+    public static function getGender($value): string
     {
         switch ($value) {
             case self::Male:
@@ -23,7 +26,16 @@ final class Gender extends Enum
             case self::Female:
                 return '女性';
             default:
-                return parent::getDescription($value);
+                return '';
         }
+    }
+
+    public static function getGenders(bool $isEmpty = true): array
+    {
+        $genders = [
+            self::Male => self::getGender(self::Male),
+            self::Female => self::getGender(self::Female),
+        ];
+        return $isEmpty ? array_merge(['' => ''], $genders) : $genders;
     }
 }
