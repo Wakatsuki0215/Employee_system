@@ -12,9 +12,9 @@
 </div>
 @endif
 </div>
-<form action="{{ route('create')}}" method="post">
+<form action="{{ url('/employee_add')}}" method="post">
+<!-- <form action="{{ route('create')}}" method="post"> -->
 @csrf
 	<!-- 入力フォームパーツ読み出し部分 -->
 	@include('components.employee_form')
-	<input type="submit" class="btn btn-success" value="登録">
 </form>
