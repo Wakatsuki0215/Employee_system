@@ -18,5 +18,4 @@
 @method('PUT')
 	<!-- 入力フォームパーツ読み出し部分 -->
 	@include('components.employee_form')
-	<input type="submit" class="btn btn-success" value="保存">
 </form>
