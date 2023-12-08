@@ -20,6 +20,9 @@ use App\Http\Controllers\LogoutController;
 Route::get('/login', function () {return view('login');});
 Route::post('/login', [LoginController::class, 'login'])->name('login');
 
+// ログインユーザーのみ遷移できる。
+Route::group(['middleware' => 'myself'], function () {
+
 //一覧
 Route::get('/employee_list', [EmployeeController::class, 'index'])->name('index');
 Route::put('/employee_list', [EmployeeController::class, 'index'])->name('index');
@@ -37,6 +40,7 @@ Route::put('/employee_edit/{id}', [EmployeeController::class, 'update'])->name('
 
 // パスワード変更
 Route::put('/employee_password/{id}', [EmployeeController::class, 'password'])->name('password_update');
+});
 
 //ログアウト
 Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
