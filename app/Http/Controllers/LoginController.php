@@ -35,7 +35,7 @@ class LoginController extends Controller
         }
 
         return back()->withErrors([
-            'email' => 'The provided credentials do not match our records.',
+            'email' => 'ログインに失敗しました。社員番号もしくはパスワードが違います。',
         ])->onlyInput('email');
     }
 

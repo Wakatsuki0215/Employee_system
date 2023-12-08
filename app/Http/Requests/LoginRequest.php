@@ -22,9 +22,9 @@ class LoginRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'id' => ['required','integer'], 
+            'id' => ['required','integer'],
              //password 大文字、小文字、数字、記号(４種類中 ３種類 必須)
-            'password' => ['required','regex:/^((?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])|(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%+-=])|(?=.*[A-Z])(?=.*[0-9])(?=.*[@#$%+-=])|(?=.*[a-z])(?=.*[0-9])(?=.*[@#$%+-=]))([a-zA-Z0-9@#$%+-=]){8,24}$/'],
+            'password' => ['required'],
         ];
     }
 }

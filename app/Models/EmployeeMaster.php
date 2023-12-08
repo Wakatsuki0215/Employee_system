@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use App\Enums\AffiliationType;
+use Illuminate\Contracts\View\View;
 
 class EmployeeMaster extends Authenticatable
 {
@@ -35,7 +37,6 @@ class EmployeeMaster extends Authenticatable
         'created_at',
         'updated_by',
         'updated_at',
-        // DBから
     ];
 
     /**
@@ -57,4 +58,6 @@ class EmployeeMaster extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+
 }
