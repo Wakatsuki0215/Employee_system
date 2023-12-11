@@ -16,45 +16,50 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 
+// NOTE: メソッド名はじまりは小文字のキャメルケースでそろえましょう
 class EmployeeController extends Controller
 {
-    // 表示系
+    // 表示
     //一覧
     public function index(Request $request, GetEmployeeListService $service)
     {
         $data = $request->all();
-        $response = $service->SearchEmployee($data);
+        // NOTE: メソッド名変更
+        $response = $service->searchEmployee($data);
+        // TODO: $dataはserviceクラス内で使用されていないので一対何の意味があるのだろうか、、
+        // TODO: searchEmployee内でpagenateすべきでは？
         $employees = $service->Paginated($data);
 
+        // TODO: responseとemployeesの使い分けはいったい何があるのでしょうか？
         return view('employee_list', ['response' => $response, 'employees' => $employees]);
-
     }
 
     // 新規登録
     public function new(GetEmployeeAddService $service)
     {
-        $affiliations = $service->AffiliationSelect();
+        $affiliations = $service->affiliationSelect();
+
         return view('employee_add', ['affiliations' => $affiliations]);
     }
+
     // 詳細
     public function show()
     {
+        // NOTE: 変更予定の認識でよいのか？
         // authでログインユーザーのマイページに遷移してもらうようにする。
         $employee = auth::user();
+
         return view('employee_show', ['employee' => $employee]);
     }
+
     // 編集
     public function get(Request $request, GetEmployeeEditService $service)
     {
-        // $affiliations = AffiliationMaster::all();
-        $data = $request->all();
-        $employee = $service->GetEmployee($request->id);
-        $affiliations = $service->GetAffiliation();
-        return view('employee_edit', ['employee' => $employee, 'affiliations' => $affiliations]);
+        // NOTE: responseでまとめて受け取ってください
+        $response = $service->getEmployee($request->id);
+
+        return view('employee_edit', ['employee' => $response['employee'], 'affiliations' => $response['affiliations']]);
     }
-
-
-
 
     // 処理系
     //登録処理
@@ -62,7 +67,10 @@ class EmployeeController extends Controller
     {
         // 登録フォームから入力したデータを受け取る
         $data = $request->all();
-        $employee = $service->AddEmployee($data);
+        // TODO: レスポンスに載せないのであれば$employeeにセットする必要ないです
+        // TODO: 不必要な変数セットはメモリが無駄になります
+        $employee = $service->addEmployee($data);
+
         // 一覧に戻る
         return redirect()->route('index');
     }
@@ -71,7 +79,9 @@ class EmployeeController extends Controller
     public function update(EmployeeRequest $request, PutEmployeeService $service)
     {
         $data = $request->all();
-        $service->EditEmployee($request->id, $data);
+        // NOTE: $request->idではなく変換しているのであれば$data->id
+        $service->editEmployee($data->id, $data);
+
         return redirect()->route('index');
     }
 
@@ -79,9 +89,13 @@ class EmployeeController extends Controller
     public function password(PasswordRequest $request, UpdatePasswordService $service)
     {
         $data = $request->all();
-        $employee = $service->UpdatePassword($request->id, $data);
+        // NOTE: $request->idではなく変換しているのであれば$data->id
+        // TODO: レスポンスに載せないのであれば$employeeにセットする必要ないです
+        // TODO: 不必要な変数セットはメモリが無駄になります
+        $employee = $service->updatePassword($data->id, $data);
 
         session()->flash('flash_message', 'パスワードの変更完了しました。');
+
         return redirect('/employee_list');
     }
 }

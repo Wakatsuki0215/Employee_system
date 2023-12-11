@@ -41,7 +41,8 @@ class GetEmployeeListService
             $employee_query->where('status', $data['status']);
         }
 
-        $employees = $employee_query->get();
+        // TODO: pagenateはこちらで指定すべきでは？
+        $employees = $employee_query->pagenate(5);
 
         $test = $employees->toArray();
         // end
@@ -60,6 +61,7 @@ class GetEmployeeListService
         ];
     }
 
+    // TODO: この実装は何もとれていないのでは？
     public function Paginated($data)
     {
         return EmployeeMaster::paginate(5);

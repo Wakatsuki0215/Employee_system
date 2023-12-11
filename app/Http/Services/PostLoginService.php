@@ -13,12 +13,12 @@ class PostLoginService
         // DBからIDとパスワード取得
         $employee = EmployeeMaster::where('id', $data['id'])->first();
         // $employeeが取得できた場合
-        if($employee) {
-        // passwordをmakeVisibleで取得
-        $employee->makeVisible(['password']);
+        if ($employee) {
+            // passwordをmakeVisibleで取得
+            $employee->makeVisible(['password']);
             // Hash::checkでリクエストのパスワードとチェック
             if (Hash::check($data['password'], $employee->password)) {
-        // sessionにログイン情報を保持
+                // sessionにログイン情報を保持
                 session([
                     'id' => $employee->id,
                     'name' => $employee->name,

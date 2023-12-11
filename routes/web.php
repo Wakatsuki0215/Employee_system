@@ -17,21 +17,25 @@ use App\Http\Controllers\LogoutController;
 */
 
 // ログイン
-Route::get('/login', function () {return view('login');});
+Route::get('/login', function () {
+    return view('login');
+});
 Route::post('/login', [LoginController::class, 'login'])->name('login');
 
 
 // ログインユーザーのみ遷移できる。
 Route::group(['middleware' => ['myself']], function () {
-    //一覧
+    //　社員一覧
     Route::get('/employee_list', [EmployeeController::class, 'index'])->name('index');
+    // TODO: 初期取得と検索でrouteを分ける必要はないと思います。
     Route::put('/employee_list', [EmployeeController::class, 'index'])->name('index');
 
-    //詳細
+    // 社員詳細
+    // TODO: 管理者もしくは自分自身化のミドルウェアが必要
     Route::get('/employee_show', [EmployeeController::class, 'show'])->name('show');
 
     Route::group(['middleware' => ['authority']], function () {
-        //登録
+        // 社員登録
         Route::get('/employee_add', [EmployeeController::class, 'new'])->name('new');
         Route::post('/employee_add', [EmployeeController::class, 'create'])->name('create');
 
@@ -39,8 +43,8 @@ Route::group(['middleware' => ['myself']], function () {
         Route::get('/employee_edit/{id}', [EmployeeController::class, 'get'])->name('get');
         Route::put('/employee_edit/{id}', [EmployeeController::class, 'update'])->name('update');
 
-    // パスワード変更
-    Route::put('/employee_password/{id}', [EmployeeController::class, 'password'])->name('password_update');
+        // パスワード変更
+        Route::put('/employee_password/{id}', [EmployeeController::class, 'password'])->name('password_update');
     });
 });
 

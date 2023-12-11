@@ -125,6 +125,7 @@
                                 </div>
                                 <form class="center" action="{{ url('/employee_password', $employee->id) }}" method="post">
                                     @csrf
+                                    // TODO: 検索はGETです。初期取得と同じ扱いになります。
                                     @method('PUT')
                                     <div class="modal-password-form">
                                         <label for="password">新しいパスワード</label>

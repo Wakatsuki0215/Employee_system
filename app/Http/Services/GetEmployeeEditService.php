@@ -7,17 +7,25 @@ use App\Models\EmployeeMaster;
 
 class GetEmployeeEditService
 {
-    public function GetEmployee($data)
+    public function getEmployee($data): array // NOTE: 型指定してください
     {
         // 社員情報を取得
         $employee = EmployeeMaster::find($data);
-        return $employee;
+
+        $affiliations = AffiliationMaster::all();
+
+        return $response = [
+            'employee' => $employee,
+            'affiliations' => $affiliations,
+        ];
+
+        // return $employee;
     }
 
-    public function GetAffiliation()
+    // TODO: 削除してください
+    public function getAffiliations()
     {
         $affiliations = AffiliationMaster::all();
         return $affiliations;
     }
-
 }
