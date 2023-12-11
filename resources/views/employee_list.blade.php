@@ -3,16 +3,16 @@
 
 
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-<script src="js/password_modal.js"></script>
+<script src="js/employee_list.js"></script>
 
 @include('components.header')
 
 
 
 <h4>社員名簿一覧</h4>
-@if (session('flash_message'))
+@if (session('session'))
 <div class="alert" style="color: green;">
-    {{ session('flash_message') }}
+    {{ session('session') }}
 </div>
 @endif
 
@@ -47,14 +47,15 @@
         <label for="affiliation_id">所属
             <select name="affiliation_id" id="affiliation_id">
                 <option value=""></option>
-                @foreach ($response['affiliations'] as $item)
+                @foreach ($affiliations as $item)
                 <option value="{{ $item->id }}">{{ $item->affiliation_name }}</option>
                 @endforeach
             </select>
         </label>
 
+
         <!-- 権限検索 -->
-        <label for="role">権限
+        <label for="role" data-toggle="modal">権限
             <select name="role" id="role">
                 @foreach (\App\Enums\Role::getRoles() as $value => $label)
                 <option value="{{ $value }}">{{ $label }}</option>
@@ -63,10 +64,12 @@
         </label>
 
         <!-- 無効社員　チェック項目 -->
-        <label for="status">
-            <input type="checkbox" name="status" value="disabled">
+        <label for="status" data-toggle="modal">
+            <input type="checkbox" name="status" id="" value="disabled">
             無効を含む
         </label>
+
+
 
         <!-- クリア・検索ボタン -->
         <input type=reset class="btn btn-secondary" value="クリア">
@@ -91,7 +94,7 @@
 <!-- 社員一覧表示 -->
 <div class="container">
     <div class="scroll_area">
-        <table class="table  table-striped">
+        <table class="table  table-bordered">
             <tr>
                 <th>名前</th>
                 <th>性別</th>
@@ -101,8 +104,9 @@
                 <th></th>
                 <th></th>
             </tr>
-            @foreach ($response['employees'] as $employee)
-            <tr>
+            <!-- TODO:一度に見れる件数を７件くらいに増やす。 -->
+            @foreach ($employees as $employee)
+            <tr class={{ $employee->status ===  'disabled' ? 'disabled_row' : '' }}>
                 <td>{{ $employee->name }}</td>
                 <!-- インクルートで -->
                 <td>{{ \App\Enums\Gender::getGender($employee->gender) }}</td>
@@ -113,7 +117,7 @@
                 <td>{{ $employee->tel }}</td>
                 <!-- パスワードモーダル -->
                 <td>
-                    <button type="button" class="btn" data-toggle="modal" data-target="#exampleModal{{ $employee->id }}">
+                    <button type="button" class={{ $employee->status ===  'disabled' ? 'disabled_button' : 'btn' }} data-toggle="modal" data-target="#exampleModal{{ $employee->id }}">
                         <i class="bi-key" style="font-size: 1.5rem;"></i>
                     </button>
                     <!-- Modal -->
@@ -152,4 +156,6 @@
     </div>
 </div>
 
-<!-- <div class="pagination">{{ $employees->links() }}</div> -->
+<div class="pagination justify-content-center">
+    {{$employees->links('pagination::bootstrap-5')}}
+</div>

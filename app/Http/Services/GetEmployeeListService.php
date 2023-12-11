@@ -36,14 +36,13 @@ class GetEmployeeListService
         if (!empty($data['role'])) {
             $employee_query->where('role', $data['role']);
         }
+
         // 有効無効
-        if (!empty($data['status'])) {
-            $employee_query->where('status', $data['status']);
+        if (empty($data['status'])) {
+            $employee_query->where('status', 'enabled');
         }
 
-        $employees = $employee_query->get();
-
-        $test = $employees->toArray();
+        $employees = $employee_query->paginate(25);
         // end
 
         // 部署情報取得 start
@@ -53,15 +52,7 @@ class GetEmployeeListService
 
         return [
             'employees' => $employees,
-            // 部署
             'affiliations' => $affiliations,
-            // 検索条件
-            'search' => []
         ];
-    }
-
-    public function Paginated($data)
-    {
-        return EmployeeMaster::paginate(5);
     }
 }

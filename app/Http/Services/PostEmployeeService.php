@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Hash;
 
 class PostEmployeeService
 {
-  public function AddEmployee(array $data)
+  public function addEmployee(array $data): void
   {
     // 社員情報登録 start
     $employee = new EmployeeMaster;
@@ -30,6 +30,5 @@ class PostEmployeeService
 
     //保存
     $employee->save();
-    return $employee;
   }
 }

@@ -25,6 +25,14 @@ a{
     border-spacing: 0;
 }
 
+.disabled_row{
+    background-color: grey;
+}
+
+.disabled_button{
+    display: none;
+}
+
 th{
     white-space: nowrap;
     background: #f2f2f2;
@@ -33,11 +41,13 @@ th{
     left: 0;
     z-index: 1;
 }
+th .general{
+    display: none;
+}
 
 td{
     white-space: nowrap;
 }
-
 
 
 /* パスワードモーダル */
@@ -71,4 +81,10 @@ td{
 
 .modal-password-form{
     padding-top: 5%;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
 }

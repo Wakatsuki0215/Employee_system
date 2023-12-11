@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Hash;
 
 class PutEmployeeService
 {
-  public function EditEmployee(int $id, array $input): void
+  public function editEmployee(int $id, array $input): void
   {
     $employee = EmployeeMaster::find($id);
     // 社員情報更新  start
@@ -29,6 +29,5 @@ class PutEmployeeService
 
     //保存
     $employee->save();
-
   }
 }

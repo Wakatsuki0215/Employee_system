@@ -11,7 +11,7 @@ class PostLoginService
     public function postLogin(array $data)
     {
         // DBからIDとパスワード取得
-        $employee = EmployeeMaster::where('id', $data['id'])->first();
+        $employee = EmployeeMaster::find($data['id']);
         // $employeeが取得できた場合
         if($employee) {
         // passwordをmakeVisibleで取得
