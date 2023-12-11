@@ -5,7 +5,7 @@ namespace App\Http\Middleware;
 use App\Enums\Role;
 use Closure;
 use Illuminate\Http\Request;
-use Symfony\Component\HttpFoundation\Response;
+
 
 // 管理者かどうか
 class CheckAdmin
@@ -15,7 +15,7 @@ class CheckAdmin
         if (session('role') === Role::Admin) {
             return $next($request);
         }
-
+        // TODO:　メッセージ追加「権限がありません」
         return back();
     }
 }
