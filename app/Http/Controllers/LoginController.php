@@ -9,9 +9,8 @@ use Illuminate\Http\RedirectResponse;
 
 class LoginController extends Controller
 {
-    public function login(LoginRequest $request,PostLoginService $service): RedirectResponse
+    public function login(LoginRequest $request,PostLoginService $service)
     {
-        // ログイン
         $data = $request->all();
         $result = $service->postLogin($data);
         if ($result) {
@@ -22,7 +21,7 @@ class LoginController extends Controller
     }
 
     // TODO: 動き確認
-    public function logout(): RedirectResponse
+    public function logout()
     {
         session()->flush();
 
