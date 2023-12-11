@@ -10,7 +10,6 @@ use Illuminate\Support\Facades\Hash;
 
 class PutEmployeeService
 {
-    // NOTE: メソッド名変更
     public function editEmployee(int $id, array $input): void
     {
         $employee = EmployeeMaster::find($id);

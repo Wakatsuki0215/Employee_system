@@ -6,10 +6,8 @@ use App\Models\AffiliationMaster;
 
 class GetEmployeeAddService
 {
-    // NOTE: メソッド名変更
-    public function affiliationSelect()
+    public function getAffiliation()
     {
-        // affiliation_nameをDBから取得する。
         return AffiliationMaster::all();
     }
 }

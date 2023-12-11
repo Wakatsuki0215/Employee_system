@@ -10,8 +10,7 @@ use Illuminate\Support\Facades\Hash;
 
 class PostEmployeeService
 {
-    // NOTE: メソッド名変更
-    public function addEmployee(array $data): void // NOTE: 返り値指定してください
+    public function addEmployee(array $data): void
     {
         // 社員情報登録 start
         $employee = new EmployeeMaster;
@@ -26,12 +25,10 @@ class PostEmployeeService
         $employee->tel = $data['tel'];
         $employee->role = $data['role'];
         $employee->status = $data['status'];
-        $employee->password = Hash::make('password'); //TODO: ハッシュ化の桁数指定(対応しなくてよいのか？)
+        $employee->password = Hash::make('password'); //ハッシュ化の桁数指定
         // end
 
         //保存
         $employee->save();
-        // NOTE: 不必要
-        // return $employee;
     }
 }
