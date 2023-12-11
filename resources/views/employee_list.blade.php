@@ -101,11 +101,11 @@
                 <th>所属</th>
                 <th>メールアドレス</th>
                 <th>電話番号</th>
-                <!-- TODO:generalの場合表示されないようにする -->
+                <!-- TODO: adminの時に表示するがスマート -->
                 <th></th>
                 <th></th>
             </tr>
-            <!-- TODO:一度に見れる件数を７件くらいに増やす。 -->
+            <!-- TODO: 一度に見れる件数を７件くらいに増やす。(１５件くらい見たいです) -->
             @foreach ($employees as $employee)
             <tr class={{ $employee->status ===  'disabled' ? 'disabled_row' : '' }}>
                 <td>{{ $employee->name }}</td>

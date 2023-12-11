@@ -1,13 +1,14 @@
+/** NOTE: indent変更 */
 ul li {
     list-style: none;
 }
 
 label {
     margin-right: 10px;
-    width:150px;
+    width: 150px;
 }
 
-.form_button{
+.form_button {
     margin-left: 10px;
 }
 
@@ -18,4 +19,4 @@ label {
 #toggleIcon {
     position: relative;
     left: -2.2em;
-  }
+}
