@@ -14,7 +14,7 @@ class LoginController extends Controller
         $data = $request->all();
         $result = $service->postLogin($data);
         if ($result) {
-            return redirect('employee_list');
+            return redirect('employee_list')->with('session','ログインしました。');
         }else{
             return back()->withErrors('ログインに失敗しました。社員番号もしくはパスワードが異なります。');
         }
@@ -23,6 +23,6 @@ class LoginController extends Controller
     public function logout()
     {
         session()->flush();
-        return redirect('login');
+        return redirect('login')->with('session','ログアウトしました。');
     }
 }

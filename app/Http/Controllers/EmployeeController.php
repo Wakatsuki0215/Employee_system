@@ -61,7 +61,7 @@ class EmployeeController extends Controller
         $data = $request->all();
         $service->addEmployee($data);
 
-        return redirect()->route('index');
+        return redirect('/employee_list')->with('session','社員情報の登録が完了しました。');
     }
 
     // 更新
@@ -70,7 +70,7 @@ class EmployeeController extends Controller
         $data = $request->all();
         $service->editEmployee($id, $data);
 
-        return redirect()->route('index');
+        return redirect('/employee_list')->with('session','社員情報の変更が完了しました。');
     }
 
     // モーダルパスワード変更
@@ -79,6 +79,6 @@ class EmployeeController extends Controller
         $data = $request->all();
         $service->updatePassword($id, $data);
 
-        return redirect('/employee_list')->with('session','パスワードの変更が完了しました。');;
+        return redirect('/employee_list')->with('session','パスワードの変更が完了しました。');
     }
 }
