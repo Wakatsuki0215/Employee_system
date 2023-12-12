@@ -8,15 +8,16 @@ namespace App\Enums;
 use BenSampo\Enum\Enum;
 
 /**
- * @method static static OptionOne()
- * @method static static OptionTwo()
- * @method static static OptionThree()
+ * 性別 Enum
  */
 final class Gender extends Enum
 {
     const Male = 'male';
     const Female = 'female';
 
+    /**
+     * 性別取得
+     */
     public static function getGender($value): string
     {
         switch ($value) {
@@ -29,12 +30,16 @@ final class Gender extends Enum
         }
     }
 
+    /**
+     * 性別リスト取得
+     */
     public static function getGenders(bool $isEmpty = true): array
     {
         $genders = [
             self::Male => self::getGender(self::Male),
             self::Female => self::getGender(self::Female),
         ];
+
         return $isEmpty ? array_merge(['' => ''], $genders) : $genders;
     }
 }

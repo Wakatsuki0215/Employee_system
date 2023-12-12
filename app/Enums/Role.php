@@ -7,15 +7,16 @@ namespace App\Enums;
 use BenSampo\Enum\Enum;
 
 /**
- * @method static static OptionOne()
- * @method static static OptionTwo()
- * @method static static OptionThree()
+ * 権限 Enum
  */
 final class Role extends Enum
 {
     const Admin = 'admin';
     const General = 'general';
 
+    /**
+     * 権限取得
+     */
     public static function getRole($value): string
     {
         switch ($value) {
@@ -28,13 +29,16 @@ final class Role extends Enum
         }
     }
 
-
+    /**
+     * 権限リスト取得
+     */
     public static function getRoles(bool $isEmpty = true): array
     {
         $roles = [
             self::Admin => self::getRole(self::Admin),
             self::General => self::getRole(self::General),
         ];
+
         return $isEmpty ? array_merge([0 => ''], $roles) : $roles;
     }
 }

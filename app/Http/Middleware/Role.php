@@ -6,6 +6,9 @@ use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
+/**
+ * TODO: 不要であれば削除してください
+ */
 class Role
 {
     /**
@@ -15,7 +18,7 @@ class Role
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (session('role') === 'admin' || session()->has('id') == $request->route('id')){
+        if (session('role') === 'admin' || session()->has('id') == $request->route('id')) {
             return $next($request);
         }
         return back();

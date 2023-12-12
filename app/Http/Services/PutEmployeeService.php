@@ -10,7 +10,9 @@ use Illuminate\Support\Facades\Hash;
 
 class PutEmployeeService
 {
-    public function editEmployee(int $id, array $input): void
+    // NOTE: 排他チェック追加、動作確認してください。
+    // NOTE: 問題なければパスワード変更にも適用してください。
+    public function editEmployee(int $id, array $input): bool
     {
         $employee = EmployeeMaster::find($id);
         // 社員情報更新  start
@@ -27,7 +29,13 @@ class PutEmployeeService
         $employee->status = $input['status'];
         // end
 
-        //保存
-        $employee->save();
+        // 排他チェック(楽観)
+        if ($input['updated_at'] !== $employee->updated_at) {
+            return false;
+        } else {
+            //保存
+            $employee->save();
+            return true;
+        }
     }
 }

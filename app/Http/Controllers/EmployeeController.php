@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 
-// NOTE: メソッド名はじまりは小文字のキャメルケースでそろえましょう
+// TODO: 返却メッセージの名称を変更したので画面側の修正をしてください。
 class EmployeeController extends Controller
 {
     // 表示
@@ -34,6 +34,7 @@ class EmployeeController extends Controller
     public function new(GetEmployeeAddService $service)
     {
         $affiliations = $service->getAffiliation();
+        // NOTE: 改行
         return view('employee_add', ['affiliations' => $affiliations]);
     }
 
@@ -49,34 +50,41 @@ class EmployeeController extends Controller
     public function get(Request $request, GetEmployeeService $service)
     {
         $response = $service->getEmployee($request->id);
+        // NOTE: 改行
         return view('employee_edit', ['employee' => $response['employee'], 'affiliations' => $response['affiliations']]);
     }
 
     // 処理
-    //登録
+    // 登録
     public function create(EmployeeRequest $request, PostEmployeeService $service)
     {
         $data = $request->all();
-        $service->addEmployee($data);
+        $result = $service->addEmployee($data);
 
-        return redirect('/employee_list')->with('session', '社員情報の登録が完了しました。');
+        return redirect('/employee_list')->with('success_message', '社員情報を登録しました。');
     }
 
     // 更新
     public function update(int $id, EmployeeRequest $request, PutEmployeeService $service)
     {
         $data = $request->all();
-        $service->editEmployee($id, $data);
+        // NOTE: 排他チェック追加
+        $result = $service->editEmployee($id, $data);
 
-        return redirect('/employee_list')->with('session', '社員情報の変更が完了しました。');
+        if ($result) {
+            return redirect('/employee_list')->with('success_message', '社員情報を更新しました。');
+        } else {
+            return redirect('/employee_list')->with('error_message', '他のユーザーが社員情報を実行中です。');
+        }
     }
 
     // モーダルパスワード変更
     public function password(int $id, PasswordRequest $request, UpdatePasswordService $service)
     {
         $data = $request->all();
+        // TODO: 排他チェック追加してください。
         $service->updatePassword($id, $data);
 
-        return redirect('/employee_list')->with('session', 'パスワードの変更が完了しました。');
+        return redirect('/employee_list')->with('success_message', 'パスワードを更新しました。');
     }
 }

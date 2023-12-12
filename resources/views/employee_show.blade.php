@@ -1,6 +1,7 @@
 <link rel="stylesheet" href="{{ asset('/css/form.css') }}">
 @include('components.header')
 <h4>マイページ</h4>
+<!-- TODO: 不要であれば削除してください -->
 <!-- <div class="container">
     <div class="row">
         <div class="col-2">

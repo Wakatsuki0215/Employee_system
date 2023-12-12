@@ -6,6 +6,7 @@ use BenSampo\Enum\Enum;
 
 use function PHPUnit\Framework\isEmpty;
 
+// TODO: 以前お伝えした通り、こちらは使用しません。削除してください。
 final class Affiliation extends Enum
 {
     const SystemBusinessDivision = 1;
@@ -15,7 +16,7 @@ final class Affiliation extends Enum
     const GeneralAffairsDepartment = 5;
     const BusinessHeadquarters = 6;
 
-    // 以下、日本語のラベルを追加する
+    /** */
     public static function getAffiliation($value): string
     {
         switch ($value) {
@@ -36,7 +37,7 @@ final class Affiliation extends Enum
         }
     }
 
-    public static function getAffiliations(bool $isEmpty = true) :array
+    public static function getAffiliations(bool $isEmpty = true): array
     {
         $affiliations =  [
             //システム事業部
@@ -50,7 +51,7 @@ final class Affiliation extends Enum
             //総務部
             self::GeneralAffairsDepartment =>  self::getDescription(self::GeneralAffairsDepartment),
             //業務本部
-            self::BusinessHeadquarters=>  self::getDescription(self::BusinessHeadquarters),
+            self::BusinessHeadquarters =>  self::getDescription(self::BusinessHeadquarters),
         ];
         return $isEmpty ? array_merge([0 => ''], $affiliations) : $affiliations;
     }

@@ -7,15 +7,16 @@ namespace App\Enums;
 use BenSampo\Enum\Enum;
 
 /**
- * @method static static OptionOne()
- * @method static static OptionTwo()
- * @method static static OptionThree()
+ * ステータス
  */
 final class Status extends Enum
 {
     const Enabled = 'enabled';
     const Disabled = 'disabled';
 
+    /**
+     * ステータス取得
+     */
     public static function getStatus($value): string
     {
         switch ($value) {
@@ -29,12 +30,19 @@ final class Status extends Enum
     }
 
 
-    public static function getRStatus(bool $isEmpty = true): array
+    /**
+     * ステータスリスト取得
+     */
+    // NOTE: getRStatus→getStatusに変更 
+    // TODO: getRStatusで全ファイルで検索し、getStatusesに一斉置換してください。
+    public static function getStatuses(bool $isEmpty = true): array
     {
-        $Status = [
+        // NOTE: Status→status
+        $status = [
             self::Enabled => self::getStatus(self::Enabled),
             self::Disabled => self::getStatus(self::Disabled),
         ];
-        return $isEmpty ? array_merge([0 => ''], $Status) : $Status;
+
+        return $isEmpty ? array_merge([0 => ''], $status) : $status;
     }
 }

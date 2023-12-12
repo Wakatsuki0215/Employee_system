@@ -7,7 +7,9 @@ use Closure;
 use Illuminate\Http\Request;
 
 
-// 管理者かどうか
+/**
+ * 管理者権限チェック
+ */
 class CheckAdmin
 {
     public function handle(Request $request, Closure $next)
@@ -15,6 +17,6 @@ class CheckAdmin
         if (session('role') === Role::Admin) {
             return $next($request);
         }
-        return back()->withErrors("権限がありません");
+        return back()->withErrors("権限がありません。");
     }
 }
