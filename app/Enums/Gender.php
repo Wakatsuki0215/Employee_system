@@ -17,7 +17,6 @@ final class Gender extends Enum
     const Male = 'male';
     const Female = 'female';
 
-    // 以下、日本語のラベルを追加する
     public static function getGender($value): string
     {
         switch ($value) {

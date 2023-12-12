@@ -16,7 +16,7 @@ final class Affiliation extends Enum
     const BusinessHeadquarters = 6;
 
     // 以下、日本語のラベルを追加する
-    public static function getDescription($value): string
+    public static function getAffiliation($value): string
     {
         switch ($value) {
             case self::SystemBusinessDivision:

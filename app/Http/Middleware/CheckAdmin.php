@@ -15,7 +15,6 @@ class CheckAdmin
         if (session('role') === Role::Admin) {
             return $next($request);
         }
-        // TODO:　メッセージ追加「権限がありません」
-        return back();
+        return back()->withErrors("権限がありません");
     }
 }

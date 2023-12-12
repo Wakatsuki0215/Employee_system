@@ -9,7 +9,6 @@ class GetEmployeeService
 {
     public function getEmployee($data): array
     {
-        // 社員情報を取得
         $employee = EmployeeMaster::find($data);
         $affiliations = AffiliationMaster::all();
 

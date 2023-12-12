@@ -83,6 +83,15 @@ td {
     padding-top: 5%;
 }
 
+#password {
+    box-sizing: border-box;
+    padding-right: 2.4em;
+}
+#toggleIcon {
+    position: relative;
+    left: -2.2em;
+  }
+
 .pagination {
     display: flex;
     justify-content: center;

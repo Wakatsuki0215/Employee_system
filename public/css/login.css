@@ -44,8 +44,18 @@ h3 {
     position: absolute;
 }
 
+#id {
+    box-sizing: border-box;
+    width: 13.7em;
+}
+
 #password {
     box-sizing: border-box;
+    padding-right: 2.4em;
+}
+#toggleIcon {
+    position: relative;
+    left: -2.2em;
 }
 
 #passwordIcon {
