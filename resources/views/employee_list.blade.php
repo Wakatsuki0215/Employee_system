@@ -11,7 +11,7 @@
 
 <h4>社員名簿一覧</h4>
 @if (session('session'))
-<div class="alert" style="color: green;">
+<div class="alert alert-success">
     {{ session('session') }}
 </div>
 @endif
@@ -26,6 +26,7 @@
 </div>
 </div>
 @endif
+
 <!-- 検索条件　入力フォーム -->
 <div class="container d-flex align-items-center justify-content-center p-3 mb-2 bg-light text-black">
     <form action={{url('/employee_list')}} method="GET">
@@ -112,7 +113,7 @@
                 <!-- インクルートで -->
                 <td>{{ \App\Enums\Gender::getGender($employee->gender) }}</td>
                 <!-- ファンクションを作って持ってくるようにする。 -->
-                <td>{{ \App\Enums\Affiliation::getDescription($employee->affiliation_id) }}</td>
+                <td>{{ \App\Enums\Affiliation::getAffiliation($employee->affiliation_id) }}</td>
                 <!-- @inject('response','App\Http\Services\GetEmployeeListService')　-->
                 <td>{{ $employee->mail }}</td>
                 <td>{{ $employee->tel }}</td>
@@ -133,13 +134,13 @@
                                     @method('PUT')
                                     <div class="modal-password-form">
                                         <label for="password">新しいパスワード</label>
-                                        <input type="password" name="password">
-                                        <i class="toggle-pass bi bi-eye-slash"></i>
+                                        <input type="password" id="password" name="password">
+                                        <i id="toggleIcon" class="toggle-pass bi bi-eye-slash"></i>
                                     </div>
                                     <div class="modal-password-form">
                                         <label for="password">新しいパスワード(確認用)</label>
-                                        <input type="password" name="password_confirmation">
-                                        <i class="toggle-pass bi bi-eye-slash"></i>
+                                        <input type="password" id="password" name="password_confirmation">
+                                        <i id="toggleIcon" class="toggle-pass bi bi-eye-slash password__toggle"></i>
                                     </div>
                                     <div class="modal-password-form">
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">戻る</button>

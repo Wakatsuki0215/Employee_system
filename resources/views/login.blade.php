@@ -11,7 +11,7 @@
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 	<link rel="stylesheet" href="{{ asset('/css/login.css') }}">
 	<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-	<script src="js/password_modal.js"></script>
+	<script src="js/employee_list.js"></script>
 
 
 	<!-- bootstrap icon -->
@@ -28,6 +28,11 @@
 
 	<div class="container">
 		<div class="center-block">
+			@if (session('session'))
+			<div class="alert alert-success">
+				{{ session('session') }}
+			</div>
+			@endif
 			@if ($errors->any())
 			<div class="alert alert-danger">
 				<ul>
@@ -46,7 +51,6 @@
 				<div class="col-md-5 text-end">
 					<label for="id">社員番号</label>
 				</div>
-				<div class="col-md-1"></div>
 				<div class="col-md-5">
 					<input type="text" name="id" id="id">
 				</div>
@@ -55,34 +59,15 @@
 				<div class="col-md-5 text-end">
 					<label for="password">パスワード</label>
 				</div>
-				<div class="col-md-1"></div>
 				<div class="col-md-5">
 					<input type="password" id="password" name="password">
-					<i id="passwordIcon" class="toggle-pass bi bi-eye-slash"></i>
-				</div>
-			</div>
-			<div class="content">
-				<button class="btn btn-primary login-button" type="submit">
-				<i id="loginIcon" class="bi-arrow-return-right"></i>ログイン</button>
-			</div>
-
-
-			<!-- <div class="content">
-				<div class="col-sm">
-					<label for="id">社員番号</label>
-					<input type="text" name="id" id="id">
-				</div>
-			</div>
-			<div class="content">
-				<div class="col-sm">
-					<label for="password">パスワード</label>
-					<input type="password" id="password" name="password" id="password">
 					<i id="toggleIcon" class="toggle-pass bi bi-eye-slash"></i>
 				</div>
 			</div>
 			<div class="content">
-				<button class="btn btn-primary bi-arrow-return-right login-button" type="submit"> ログイン</button>
-			</div> -->
+				<button class="btn btn-primary login-button" type="submit">
+					<i id="loginIcon" class="bi-arrow-return-right"></i>ログイン</button>
+			</div>
 		</form>
 	</div>
 </body>
