@@ -2,6 +2,7 @@
 
 namespace App\Http;
 
+use App\Http\Middleware\Myself;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
@@ -15,6 +16,7 @@ class Kernel extends HttpKernel
      */
     protected $middleware = [
         // \App\Http\Middleware\TrustHosts::class,
+        \App\Http\Middleware\Myself::class,
         \App\Http\Middleware\TrustProxies::class,
         \Illuminate\Http\Middleware\HandleCors::class,
         \App\Http\Middleware\PreventRequestsDuringMaintenance::class,
@@ -31,6 +33,7 @@ class Kernel extends HttpKernel
     protected $middlewareGroups = [
         'web' => [
             \App\Http\Middleware\EncryptCookies::class,
+            // \App\Http\Middleware\Myself::class,
             \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
             \Illuminate\Session\Middleware\StartSession::class,
             \Illuminate\View\Middleware\ShareErrorsFromSession::class,
@@ -54,8 +57,12 @@ class Kernel extends HttpKernel
      */
     protected $middlewareAliases = [
         'auth' => \App\Http\Middleware\Authenticate::class,
+<<<<<<< Updated upstream
         'checkAdminOrCurrentUser' => \App\Http\Middleware\CheckAdminOrCurrentUser::class,
         'checkAdmin' => \App\Http\Middleware\CheckAdmin::class,
+=======
+        // 'myself' => \App\Http\Middleware\Myself::class,
+>>>>>>> Stashed changes
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
         'auth.session' => \Illuminate\Session\Middleware\AuthenticateSession::class,
         'cache.headers' => \Illuminate\Http\Middleware\SetCacheHeaders::class,

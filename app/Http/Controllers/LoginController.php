@@ -20,11 +20,9 @@ class LoginController extends Controller
         }
     }
 
-    // TODO: 動き確認
     public function logout()
     {
         session()->flush();
-
         return redirect('login');
     }
 }

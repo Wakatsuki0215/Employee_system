@@ -58,10 +58,9 @@ class EmployeeController extends Controller
     //登録
     public function create(EmployeeRequest $request, PostEmployeeService $service)
     {
-        // 登録フォームから入力したデータを受け取る
         $data = $request->all();
         $service->addEmployee($data);
-        // 一覧に戻る
+
         return redirect()->route('index');
     }
 
