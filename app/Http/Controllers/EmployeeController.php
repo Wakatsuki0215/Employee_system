@@ -24,10 +24,7 @@ class EmployeeController extends Controller
         $data = $request->all();
         $response = $service->searchEmployee($data);
 
-        return view('employee_list', [
-            'employees' => $response['employees'],
-            'affiliations' => $response['affiliations']
-        ]);
+        return view('employee_list', $response);
     }
 
     // 新規登録
@@ -49,6 +46,7 @@ class EmployeeController extends Controller
     public function get(Request $request, GetEmployeeService $service)
     {
         $response = $service->getEmployee($request->id);
+
         return view('employee_edit', ['employee' => $response['employee'], 'affiliations' => $response['affiliations']]);
     }
 

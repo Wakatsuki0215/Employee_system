@@ -33,7 +33,7 @@
         <!-- 名前検索 -->
         <!-- TODO:検索後入力を残す -->
         <label for="name">名前
-            <input type="text" name="name" value="{{ old('name') }}">
+            <input type="text" name="name" value="{{ isset($search['name']) ? $search['name'] : '' }}">
         </label>
         <!-- enumで配列を取ってくるようにする -->
         <!-- 性別検索 -->
@@ -80,17 +80,18 @@
 <!-- 新規登録画面　遷移ボタン -->
 <!-- TODO:一般の時非表示 -->
 
-
 <div class="container">
     <div class="row justify-content-between">
         <div class="count">
             {{ $employees->firstItem() }}~{{ $employees->lastItem() }}件表示/全{{ $employees->total() }}件
         </div>
+        @if(session('role') === 'admin')
         <div class="add-btn">
             <form action={{ url('/employee_add')}} method="get">
                 <input type=submit class=" btn btn-primary" value="新規作成">
             </form>
         </div>
+        @endif
     </div>
 </div>
 
@@ -104,23 +105,21 @@
                 <th>所属</th>
                 <th>メールアドレス</th>
                 <th>電話番号</th>
-                <!-- TODO: cssを経由っするのではなく、if文で条件分岐させる。 -->
-                <th class={{ session('role') ===  'general' ? 'general' : '' }}></th>
-                <th class={{ session('role') ===  'general' ? 'general' : '' }}></th>
+                @if(session('role') === 'admin')
+                <th></th>
+                <th></th>
+                @endif
             </tr>
             @foreach ($employees as $employee)
             <tr class={{ $employee->status ===  'disabled' ? 'disabled_line' : '' }}>
                 <td>{{ $employee->name }}</td>
-                <!-- インクルートで -->
                 <td>{{ \App\Enums\Gender::getGender($employee->gender) }}</td>
-                <!-- ファンクションを作って持ってくるようにする。 -->
                 <td>{{ \App\Enums\Affiliation::getAffiliation($employee->affiliation_id) }}</td>
-                <!-- @inject('response','App\Http\Services\GetEmployeeListService')　-->
                 <td>{{ $employee->mail }}</td>
                 <td>{{ $employee->tel }}</td>
                 <!-- パスワードモーダル -->
-                <!-- TODO: cssを経由っするのではなく、if文で条件分岐させる。start -->
-                <td class={{ session('role') ===  'general' ? 'general' : '' }}>
+                @if(session('role') === 'admin')
+                <td>
                     <button type="button" class={{ $employee->status ===  'disabled' ? 'disabled_button' : 'btn' }} data-toggle="modal" data-target="#exampleModal{{ $employee->id }}">
                         <i class="bi-key" style="font-size: 1.5rem;"></i>
                     </button>
@@ -156,12 +155,12 @@
                         </div>
                     </div>
                 </td>
-                <td class={{ session('role') ===  'general' ? 'general' : '' }}>
+                <td>
                     <a href="/employee_edit/{{$employee->id}}">
                         <i class="bi-pencil" style="font-size: 1.5rem; color: green;"></i>
                     </a>
                 </td>
-                   <!-- TODO: cssを経由っするのではなく、if文で条件分岐させる。end -->
+                @endif
             </tr>
             @endforeach
         </table>
