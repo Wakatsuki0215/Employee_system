@@ -14,6 +14,9 @@ class PostLoginService
         $employee = EmployeeMaster::find($data['id']);
         // $employeeが取得できた場合
         if($employee) {
+            if ($employee->status === 'disabled') {
+                return false;
+            }
         // passwordをmakeVisibleで取得
         $employee->makeVisible(['password']);
             // Hash::checkでリクエストのパスワードとチェック

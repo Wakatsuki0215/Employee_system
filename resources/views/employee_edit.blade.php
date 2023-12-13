@@ -1,3 +1,5 @@
+<link rel="stylesheet" href="{{ asset('/css/employee_add.css') }}">
+
 @include('components.header')
 <h4>編集画面</h4>
 <div class="center-block">

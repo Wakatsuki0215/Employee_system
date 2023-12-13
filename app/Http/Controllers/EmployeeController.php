@@ -20,6 +20,7 @@ class EmployeeController extends Controller
     //一覧
     public function index(Request $request, GetEmployeeListService $service)
     {
+        // TODO:絞り込んでページネーションのページを変えると絞り込みがリセットされる。
         $data = $request->all();
         $response = $service->searchEmployee($data);
 

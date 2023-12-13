@@ -28,11 +28,13 @@
 @endif
 
 <!-- 検索条件　入力フォーム -->
-<div class="container d-flex align-items-center justify-content-center p-3 mb-2 bg-light text-black">
+<!-- TODO:inputごとにマージンで感覚を広げる。 -->
+<div class="container d-flex align-items-center justify-content-center p-3 mb-2 text-black search_box">
     <form action={{url('/employee_list')}} method="GET">
         <!-- 名前検索 -->
+        <!-- TODO:検索後入力を残す -->
         <label for="name">名前
-            <input type="text" name="name">
+            <input type="text" name="name" value="{{ old('name') }}">
         </label>
         <!-- enumで配列を取ってくるようにする -->
         <!-- 性別検索 -->
@@ -54,7 +56,7 @@
             </select>
         </label>
 
-
+        @if(session('role') === 'admin')
         <!-- 権限検索 -->
         <label for="role" data-toggle="modal">権限
             <select name="role" id="role">
@@ -69,7 +71,7 @@
             <input type="checkbox" name="status" id="" value="disabled">
             無効を含む
         </label>
-
+        @endif
 
 
         <!-- クリア・検索ボタン -->
@@ -79,6 +81,7 @@
 </div>
 
 <!-- 新規登録画面　遷移ボタン -->
+<!-- TODO:一般の時非表示 -->
 <div class="container">
     <div class="row justify-content-between">
         <div class="count">
@@ -95,20 +98,19 @@
 <!-- 社員一覧表示 -->
 <div class="container">
     <div class="scroll_area">
-        <table class="table  table-bordered">
+        <table class="table-bordered">
             <tr>
                 <th>名前</th>
                 <th>性別</th>
                 <th>所属</th>
                 <th>メールアドレス</th>
                 <th>電話番号</th>
-                <!-- TODO:generalの場合、表示されないようにする -->
-                <th></th>
-                <th></th>
+                <!-- TODO: cssを経由っするのではなく、if文で条件分岐させる。 -->
+                <th class={{ session('role') ===  'general' ? 'general' : '' }}></th>
+                <th class={{ session('role') ===  'general' ? 'general' : '' }}></th>
             </tr>
-            <!-- TODO:一度に見れる件数を７件くらいに増やす。 -->
             @foreach ($employees as $employee)
-            <tr class={{ $employee->status ===  'disabled' ? 'disabled_row' : '' }}>
+            <tr class={{ $employee->status ===  'disabled' ? 'disabled_line' : '' }}>
                 <td>{{ $employee->name }}</td>
                 <!-- インクルートで -->
                 <td>{{ \App\Enums\Gender::getGender($employee->gender) }}</td>
@@ -118,7 +120,8 @@
                 <td>{{ $employee->mail }}</td>
                 <td>{{ $employee->tel }}</td>
                 <!-- パスワードモーダル -->
-                <td>
+                <!-- TODO: cssを経由っするのではなく、if文で条件分岐させる。start -->
+                <td class={{ session('role') ===  'general' ? 'general' : '' }}>
                     <button type="button" class={{ $employee->status ===  'disabled' ? 'disabled_button' : 'btn' }} data-toggle="modal" data-target="#exampleModal{{ $employee->id }}">
                         <i class="bi-key" style="font-size: 1.5rem;"></i>
                     </button>
@@ -132,16 +135,18 @@
                                 <form class="center" action="{{ url('/employee_password', $employee->id) }}" method="post">
                                     @csrf
                                     @method('PUT')
-                                    <div class="modal-password-form">
-                                        <label for="password">新しいパスワード</label>
-                                        <input type="password" id="password" name="password">
-                                        <i id="toggleIcon" class="toggle-pass bi bi-eye-slash"></i>
-                                    </div>
-                                    <div class="modal-password-form">
-                                        <label for="password">新しいパスワード(確認用)</label>
-                                        <input type="password" id="password" name="password_confirmation">
-                                        <i id="toggleIcon" class="toggle-pass bi bi-eye-slash password__toggle"></i>
-                                    </div>
+                                    <ul>
+                                        <li class="modal-password-form">
+                                            <label for="password">新しいパスワード</label>
+                                            <input type="password" id="password" name="password">
+                                            <i id="toggleIcon" class="toggle-pass bi bi-eye-slash"></i>
+                                        </li>
+                                        <li class="modal-password-form">
+                                            <label for="password">新しいパスワード(確認用)</label>
+                                            <input type="password" id="password" name="password_confirmation">
+                                            <i id="toggleIcon" class="toggle-pass bi bi-eye-slash password__toggle"></i>
+                                        </li>
+                                    </ul>
                                     <div class="modal-password-form">
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">戻る</button>
                                         <input type="submit" class="btn btn-success" value="変更">
@@ -151,13 +156,17 @@
                         </div>
                     </div>
                 </td>
-                <td><a href="/employee_edit/{{$employee->id}}" class="bi bi-pencil" style="font-size: 1.5rem; color: green;"></a></td>
+                <td class={{ session('role') ===  'general' ? 'general' : '' }}>
+                    <a href="/employee_edit/{{$employee->id}}">
+                        <i class="bi-pencil" style="font-size: 1.5rem; color: green;"></i>
+                    </a>
+                </td>
+                   <!-- TODO: cssを経由っするのではなく、if文で条件分岐させる。end -->
             </tr>
             @endforeach
         </table>
     </div>
 </div>
-
 <div class="pagination justify-content-center">
     {{$employees->links('pagination::bootstrap-5')}}
 </div>

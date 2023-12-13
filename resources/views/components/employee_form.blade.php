@@ -3,7 +3,8 @@
 <script src="js/employee_list.js"></script>
 
 <link rel="stylesheet" href="{{ asset('/css/form.css') }}">
-
+<!-- TODO:サブタイトルの位置調整　新規・編集両方 -->
+<!-- TODO:入力フォームブロックにマージントップを付け全体的に下げる。 -->
 <div class="container">
 	<ul>
 		<li>

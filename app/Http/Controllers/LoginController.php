@@ -16,7 +16,7 @@ class LoginController extends Controller
         if ($result) {
             return redirect('employee_list')->with('session','ログインしました。');
         }else{
-            return back()->withErrors('ログインに失敗しました。社員番号もしくはパスワードが異なります。');
+            return back()->withErrors('ログインに失敗しました。');
         }
     }
 
