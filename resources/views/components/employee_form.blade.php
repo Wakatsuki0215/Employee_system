@@ -28,8 +28,8 @@
 		<div class="row">
 			<div class="col-sm">
 				<label for="gender">性別</label>
-				<input type="radio" name="gender" value="male" <?php echo (isset($employee['gender']) && $employee['gender'] === 'male') ? 'checked' : ''; ?>>男性
-				<input type="radio" name="gender" value="female" <?php echo (isset($employee['gender']) && $employee['gender'] === 'female') ? 'checked' : ''; ?>>女性
+				<input type="radio" name="gender" value="male" {{ (old('gender') == 'male' || (isset($employee['gender']) && $employee['gender'] == 'male')) ? 'checked' : '' }}>男性
+				<input type="radio" name="gender" value="female" {{ (old('gender') == 'female' || (isset($employee['gender']) && $employee['gender'] == 'female')) ? 'checked' : '' }}>女性
 			</div>
 			<div class="col-sm">
 				<label for="age">生年月日</label>
@@ -67,16 +67,16 @@
 			<label for="role">管理権限</label>
 			<select name="role" id="role">
 				<option value=""></option>
-				<option value="general" <?php echo (isset($employee['role']) && $employee['role'] === 'general') ? 'selected' : ''; ?>>一般</option>
-				<option value="admin" <?php echo (isset($employee['role']) && $employee['role'] === 'admin') ? 'selected' : ''; ?>>管理者</option>
-			</select></br>
+				<option value="general" {{ (old('role') == 'general' || (isset($employee['role']) && $employee['role'] == 'general')) ? 'selected' : '' }}>一般</option>
+				<option value="admin" {{ (old('role') == 'admin' || (isset($employee['role']) && $employee['role'] == 'admin')) ? 'selected' : '' }}>管理者</option>
+			</select>
 		</li>
 		<li>
 			<label for="status">ステータス</label>
 			<select name="status" id="status">
-				<option value="enabled" <?php echo (isset($employee['status']) && $employee['status'] === 'enabled') ? 'selected' : ''; ?>>有効</option>
-				<option value="disabled" <?php echo (isset($employee['status']) && $employee['status'] === 'disabled') ? 'selected' : ''; ?>>無効</option>
-			</select></br>
+				<option value="enabled" {{ (old('status') == 'enabled' || (isset($employee['status']) && $employee['status'] == 'enabled')) ? 'selected' : '' }}>有効</option>
+				<option value="disabled" {{ (old('status') == 'disabled' || (isset($employee['status']) && $employee['status'] == 'disabled')) ? 'selected' : '' }}>無効</option>
+			</select>
 		</li>
 		@if(empty($employee))
 		<li>
