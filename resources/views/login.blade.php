@@ -28,9 +28,9 @@
 
 	<div class="container">
 		<div class="center-block">
-			@if (session('session'))
+			@if (session('success_message'))
 			<div class="alert alert-success">
-				{{ session('session') }}
+				{{ session('success_message') }}
 			</div>
 			@endif
 			@if ($errors->any())

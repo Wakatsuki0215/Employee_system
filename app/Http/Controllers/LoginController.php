@@ -23,6 +23,6 @@ class LoginController extends Controller
     public function logout()
     {
         session()->flush();
-        return redirect('login')->with('session','ログアウトしました。');
+        return redirect('login')->with('success_message','ログアウトしました。');
     }
 }

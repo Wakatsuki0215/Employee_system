@@ -10,9 +10,9 @@
 
 
 <h4>社員名簿一覧</h4>
-@if (session('session'))
+@if (session('success_message'))
 <div class="alert alert-success">
-    {{ session('session') }}
+    {{ session('success_message') }}
 </div>
 @endif
 
@@ -28,7 +28,6 @@
 @endif
 
 <!-- 検索条件　入力フォーム -->
-<!-- TODO:inputごとにマージンで感覚を広げる。 -->
 <div class="container d-flex align-items-center justify-content-center p-3 mb-2 text-black search_box">
     <form action={{url('/employee_list')}} method="GET">
         <!-- 名前検索 -->
@@ -72,16 +71,16 @@
             無効を含む
         </label>
         @endif
-
-
         <!-- クリア・検索ボタン -->
-        <input type=reset class="btn btn-secondary" value="クリア">
-        <input type=submit class="btn btn-primary" value="検索">
+        <input type=reset class="btn btn-secondary search_button" value="クリア">
+        <input type=submit class="btn btn-primary search_button" value="検索">
     </form>
 </div>
 
 <!-- 新規登録画面　遷移ボタン -->
 <!-- TODO:一般の時非表示 -->
+
+
 <div class="container">
     <div class="row justify-content-between">
         <div class="count">
@@ -148,6 +147,7 @@
                                         </li>
                                     </ul>
                                     <div class="modal-password-form">
+                                        <input type="hidden" id="updated_at" name="updated_at" value="{{ $employee['updated_at'] }}">
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">戻る</button>
                                         <input type="submit" class="btn btn-success" value="変更">
                                     </div>

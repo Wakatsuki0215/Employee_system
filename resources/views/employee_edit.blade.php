@@ -15,7 +15,7 @@
 @endif
 </div>
 
-<form action="{{ url('/employee_edit', $employee->id) }}" method="post">
+<form action="{{ url('/employee_edit',  $employee['id']) }}" method="post">
 @csrf
 @method('PUT')
 	<!-- 入力フォームパーツ読み出し部分 -->

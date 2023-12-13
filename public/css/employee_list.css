@@ -6,6 +6,14 @@ h4{
     background-color: rgb(238, 237, 237);
 }
 
+label{
+    margin-left: 15px;
+}
+
+.search_button{
+    margin-left: 15px;
+}
+
 a{
     text-decoration: none;
 }
@@ -24,7 +32,8 @@ a{
     height: 40vh;
     position: relative;
 }
- .table{
+
+.table{
     text-align: center;
     margin: 0;
     border-spacing: 0;
@@ -50,6 +59,7 @@ th{
     left: 0;
     z-index: 1;
 }
+
 th .general{
     display: none;
 }
@@ -76,6 +86,7 @@ th .general{
     /* デフォルト非表示にする */
     display: none;
 }
+
 .modal{
     /* モーダル画面の大きさ */
     max-width: 50%;
@@ -95,6 +106,7 @@ th .general{
 ul li {
     list-style: none;
 }
+
 ul label {
     margin-right: 10px;
     width:200px;
@@ -108,14 +120,16 @@ ul label {
     box-sizing: border-box;
     padding-right: 2.4em;
 }
+
 #toggleIcon {
     position: relative;
     left: -2.2em;
-  }
+}
 
-  .bi-pencil{
+.bi-pencil{
     padding: 0 10px;
-  }
+}
+
 
 .pagination {
     display: flex;
