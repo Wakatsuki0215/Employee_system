@@ -29,7 +29,6 @@ class PutEmployeeService
         $employee->updated_by = session('id');
         // end
 
-        // NOTE:変更予定の値をtoArrayで配列にする
         $array_employee = $employee->toArray();
 
         // 排他チェック(楽観)

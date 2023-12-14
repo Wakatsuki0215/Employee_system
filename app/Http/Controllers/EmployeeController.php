@@ -48,6 +48,7 @@ class EmployeeController extends Controller
     public function get(Request $request, GetEmployeeService $service)
     {
         $response = $service->getEmployee($request->id);
+        // NOTE: 改行
         return view('employee_edit', ['employee' => $response['employee'], 'affiliations' => $response['affiliations']]);
     }
 
@@ -56,9 +57,9 @@ class EmployeeController extends Controller
     public function create(EmployeeRequest $request, PostEmployeeService $service)
     {
         $data = $request->all();
-        $result = $service->addEmployee($data);
+        $service->addEmployee($data);
 
-        return redirect('/employee_list')->with('success_message', '社員情報の登録が完了しました。');
+        return redirect('/employee_list')->with('success_message', '社員情報を登録しました。');
     }
 
     // 更新
@@ -81,7 +82,7 @@ class EmployeeController extends Controller
         $result = $service->updatePassword($id, $data);
 
         if ($result) {
-            return redirect('/employee_list')->with('success_message', 'パスワードの変更が完了しました。');
+            return redirect('/employee_list')->with('success_message', 'パスワードを更新しました。');
         } else {
             return redirect('/employee_list')->withErrors('他のユーザーが社員情報を実行中です。');
         }

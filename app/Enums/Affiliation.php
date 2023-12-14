@@ -6,7 +6,7 @@ use BenSampo\Enum\Enum;
 
 use function PHPUnit\Framework\isEmpty;
 
-// TODO: 以前お伝えした通り、こちらは使用しません。削除してください。
+// TODO: 以前お伝えした通り、こちらは使用しません。削除してください。(適用されていません！)
 final class Affiliation extends Enum
 {
     const SystemBusinessDivision = 1;
