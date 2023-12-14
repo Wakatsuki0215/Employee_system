@@ -1,7 +1,19 @@
-/** NOTE: indent変更 */
-h3 {
-    font-weight: normal;
+h4 {
+    padding-left: 40px;
 }
+
+.search_box {
+    background-color: rgb(238, 237, 237);
+}
+
+label {
+    margin-left: 15px;
+}
+
+.search_button {
+    margin-left: 15px;
+}
+
 a {
     text-decoration: none;
 }
@@ -17,16 +29,21 @@ a {
 
 .scroll_area {
     overflow: auto;
-    height: 250px;
+    height: 40vh;
     position: relative;
 }
+
 .table {
     text-align: center;
     margin: 0;
     border-spacing: 0;
 }
 
-.disabled_row {
+.general {
+    display: none;
+}
+
+.disabled_line {
     background-color: grey;
 }
 
@@ -42,12 +59,19 @@ th {
     left: 0;
     z-index: 1;
 }
+
 th .general {
     display: none;
 }
 
-td {
-    white-space: nowrap;
+.table-bordered {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.table-bordered th,
+.table-bordered td {
+    text-align: center;
 }
 
 /* パスワードモーダル */
@@ -63,6 +87,7 @@ td {
     /* デフォルト非表示にする */
     display: none;
 }
+
 .modal {
     /* モーダル画面の大きさ */
     max-width: 50%;
@@ -79,6 +104,15 @@ td {
     display: none;
 }
 
+ul li {
+    list-style: none;
+}
+
+ul label {
+    margin-right: 10px;
+    width: 200px;
+}
+
 .modal-password-form {
     padding-top: 5%;
 }
@@ -87,13 +121,22 @@ td {
     box-sizing: border-box;
     padding-right: 2.4em;
 }
+
 #toggleIcon {
     position: relative;
     left: -2.2em;
-  }
+}
+
+.bi-pencil {
+    padding: 0 10px;
+}
 
 .pagination {
     display: flex;
     justify-content: center;
     margin-top: 20px;
+}
+
+p {
+    display: none;
 }

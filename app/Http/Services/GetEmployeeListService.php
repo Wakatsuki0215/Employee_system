@@ -53,6 +53,7 @@ class GetEmployeeListService
         return [
             'employees' => $employees,
             'affiliations' => $affiliations,
+            'search' => $data,
         ];
     }
 }

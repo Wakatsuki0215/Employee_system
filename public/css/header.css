@@ -2,3 +2,7 @@
 a:hover {
     text-decoration: none;
 }
+
+.navbar-nav .nav-item.dropdown:hover a {
+    cursor: pointer; /* または他の適切なカーソルスタイルを指定 */
+}

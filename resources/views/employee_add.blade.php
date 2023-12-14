@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="{{ asset('/css/employee_add.css') }}">
 @include('components.header')
 <h4>新規登録</h4>
 <!-- NOTE: indent修正 -->

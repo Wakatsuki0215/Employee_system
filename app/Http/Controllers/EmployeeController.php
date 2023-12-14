@@ -21,13 +21,11 @@ class EmployeeController extends Controller
     //一覧
     public function index(Request $request, GetEmployeeListService $service)
     {
+        // TODO:絞り込んでページネーションのページを変えると絞り込みがリセットされる。
         $data = $request->all();
         $response = $service->searchEmployee($data);
 
-        return view('employee_list', [
-            'employees' => $response['employees'],
-            'affiliations' => $response['affiliations']
-        ]);
+        return view('employee_list', $response);
     }
 
     // 新規登録
@@ -50,7 +48,6 @@ class EmployeeController extends Controller
     public function get(Request $request, GetEmployeeService $service)
     {
         $response = $service->getEmployee($request->id);
-        // NOTE: 改行
         return view('employee_edit', ['employee' => $response['employee'], 'affiliations' => $response['affiliations']]);
     }
 
@@ -61,20 +58,19 @@ class EmployeeController extends Controller
         $data = $request->all();
         $result = $service->addEmployee($data);
 
-        return redirect('/employee_list')->with('success_message', '社員情報を登録しました。');
+        return redirect('/employee_list')->with('success_message', '社員情報の登録が完了しました。');
     }
 
     // 更新
     public function update(int $id, EmployeeRequest $request, PutEmployeeService $service)
     {
         $data = $request->all();
-        // NOTE: 排他チェック追加
         $result = $service->editEmployee($id, $data);
 
         if ($result) {
             return redirect('/employee_list')->with('success_message', '社員情報を更新しました。');
         } else {
-            return redirect('/employee_list')->with('error_message', '他のユーザーが社員情報を実行中です。');
+            return redirect('/employee_list')->withErrors('他のユーザーが社員情報を実行中です。');
         }
     }
 
@@ -82,9 +78,12 @@ class EmployeeController extends Controller
     public function password(int $id, PasswordRequest $request, UpdatePasswordService $service)
     {
         $data = $request->all();
-        // TODO: 排他チェック追加してください。
-        $service->updatePassword($id, $data);
+        $result = $service->updatePassword($id, $data);
 
-        return redirect('/employee_list')->with('success_message', 'パスワードを更新しました。');
+        if ($result) {
+            return redirect('/employee_list')->with('success_message', 'パスワードの変更が完了しました。');
+        } else {
+            return redirect('/employee_list')->withErrors('他のユーザーが社員情報を実行中です。');
+        }
     }
 }

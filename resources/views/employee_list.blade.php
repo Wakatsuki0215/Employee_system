@@ -4,15 +4,15 @@
 
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="js/employee_list.js"></script>
-
+s
 @include('components.header')
 
 
 
 <h4>社員名簿一覧</h4>
-@if (session('session'))
+@if (session('success_message'))
 <div class="alert alert-success">
-    {{ session('session') }}
+    {{ session('success_message') }}
 </div>
 @endif
 
@@ -28,11 +28,12 @@
 @endif
 
 <!-- 検索条件　入力フォーム -->
-<div class="container d-flex align-items-center justify-content-center p-3 mb-2 bg-light text-black">
+<div class="container d-flex align-items-center justify-content-center p-3 mb-2 text-black search_box">
     <form action={{url('/employee_list')}} method="GET">
         <!-- 名前検索 -->
+        <!-- TODO:検索後入力を残す -->
         <label for="name">名前
-            <input type="text" name="name">
+            <input type="text" name="name" value="{{ isset($search['name']) ? $search['name'] : '' }}">
         </label>
         <!-- enumで配列を取ってくるようにする -->
         <!-- 性別検索 -->
@@ -54,7 +55,7 @@
             </select>
         </label>
 
-
+        @if(session('role') === 'admin')
         <!-- 権限検索 -->
         <label for="role" data-toggle="modal">権限
             <select name="role" id="role">
@@ -69,55 +70,55 @@
             <input type="checkbox" name="status" id="" value="disabled">
             無効を含む
         </label>
-
-
-
+        @endif
         <!-- クリア・検索ボタン -->
-        <input type=reset class="btn btn-secondary" value="クリア">
-        <input type=submit class="btn btn-primary" value="検索">
+        <input type=reset class="btn btn-secondary search_button" value="クリア">
+        <input type=submit class="btn btn-primary search_button" value="検索">
     </form>
 </div>
 
 <!-- 新規登録画面　遷移ボタン -->
+<!-- TODO:一般の時非表示 -->
+
 <div class="container">
     <div class="row justify-content-between">
         <div class="count">
             {{ $employees->firstItem() }}~{{ $employees->lastItem() }}件表示/全{{ $employees->total() }}件
         </div>
+        @if(session('role') === 'admin')
         <div class="add-btn">
             <form action={{ url('/employee_add')}} method="get">
                 <input type=submit class=" btn btn-primary" value="新規作成">
             </form>
         </div>
+        @endif
     </div>
 </div>
 
 <!-- 社員一覧表示 -->
 <div class="container">
     <div class="scroll_area">
-        <table class="table  table-bordered">
+        <table class="table-bordered">
             <tr>
                 <th>名前</th>
                 <th>性別</th>
                 <th>所属</th>
                 <th>メールアドレス</th>
                 <th>電話番号</th>
-                <!-- TODO:generalの場合、表示されないようにする -->
+                @if(session('role') === 'admin')
                 <th></th>
                 <th></th>
+                @endif
             </tr>
-            <!-- TODO: 一度に見れる件数を７件くらいに増やす。(１５件くらい見たいです) -->
             @foreach ($employees as $employee)
-            <tr class={{ $employee->status ===  'disabled' ? 'disabled_row' : '' }}>
+            <tr class={{ $employee->status ===  'disabled' ? 'disabled_line' : '' }}>
                 <td>{{ $employee->name }}</td>
-                <!-- インクルートで -->
                 <td>{{ \App\Enums\Gender::getGender($employee->gender) }}</td>
-                <!-- ファンクションを作って持ってくるようにする。 -->
                 <td>{{ \App\Enums\Affiliation::getAffiliation($employee->affiliation_id) }}</td>
-                <!-- @inject('response','App\Http\Services\GetEmployeeListService')　-->
                 <td>{{ $employee->mail }}</td>
                 <td>{{ $employee->tel }}</td>
                 <!-- パスワードモーダル -->
+                @if(session('role') === 'admin')
                 <td>
                     <button type="button" class={{ $employee->status ===  'disabled' ? 'disabled_button' : 'btn' }} data-toggle="modal" data-target="#exampleModal{{ $employee->id }}">
                         <i class="bi-key" style="font-size: 1.5rem;"></i>
@@ -133,17 +134,20 @@
                                     @csrf
                                     // TODO: 検索はGETです。初期取得と同じ扱いになります。
                                     @method('PUT')
+                                    <ul>
+                                        <li class="modal-password-form">
+                                            <label for="password">新しいパスワード</label>
+                                            <input type="password" id="password" name="password">
+                                            <i id="toggleIcon" class="toggle-pass bi bi-eye-slash"></i>
+                                        </li>
+                                        <li class="modal-password-form">
+                                            <label for="password">新しいパスワード(確認用)</label>
+                                            <input type="password" id="password" name="password_confirmation">
+                                            <i id="toggleIcon" class="toggle-pass bi bi-eye-slash password__toggle"></i>
+                                        </li>
+                                    </ul>
                                     <div class="modal-password-form">
-                                        <label for="password">新しいパスワード</label>
-                                        <input type="password" id="password" name="password">
-                                        <i id="toggleIcon" class="toggle-pass bi bi-eye-slash"></i>
-                                    </div>
-                                    <div class="modal-password-form">
-                                        <label for="password">新しいパスワード(確認用)</label>
-                                        <input type="password" id="password" name="password_confirmation">
-                                        <i id="toggleIcon" class="toggle-pass bi bi-eye-slash password__toggle"></i>
-                                    </div>
-                                    <div class="modal-password-form">
+                                        <input type="hidden" id="updated_at" name="updated_at" value="{{ $employee['updated_at'] }}">
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">戻る</button>
                                         <input type="submit" class="btn btn-success" value="変更">
                                     </div>
@@ -152,13 +156,17 @@
                         </div>
                     </div>
                 </td>
-                <td><a href="/employee_edit/{{$employee->id}}" class="bi bi-pencil" style="font-size: 1.5rem; color: green;"></a></td>
+                <td>
+                    <a href="/employee_edit/{{$employee->id}}">
+                        <i class="bi-pencil" style="font-size: 1.5rem; color: green;"></i>
+                    </a>
+                </td>
+                @endif
             </tr>
             @endforeach
         </table>
     </div>
 </div>
-
 <div class="pagination justify-content-center">
     {{$employees->links('pagination::bootstrap-5')}}
 </div>

@@ -17,10 +17,11 @@
                         {{ session('name') }}
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
                             <a class="dropdown-item" href={{ url('/employee_show') }}>マイページ</a>
+                            @if(Request::is('employee_list'))
                             <a class="dropdown-item" data-toggle="modal" data-target="#exampleModal{{ session('id') }}">パスワード変更</a>
+                            @endif
                             <a class="dropdown-item" href="/logout">ログアウト</a>
                         </div>
-                </li>
                 </li>
             </ul>
         </div>
