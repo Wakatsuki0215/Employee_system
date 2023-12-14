@@ -38,7 +38,7 @@
 		</div>
 		<li>
 			<label for="postcode">郵便番号</label>
-			<input type="text" name="postcode" placeholder="〒" value="{{ old('postcode', isset($employee) ? $employee['postcode'] : '') }}"></br>
+			<input type="text" name="postcode" value="{{ old('postcode', isset($employee) ? $employee['postcode'] : '') }}"></br>
 		</li>
 		<li>
 			<label for="address">住所</label>

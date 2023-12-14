@@ -23,19 +23,19 @@ class PasswordCustom implements ValidationRule
 
             // 各チェック内容を処理
             if (preg_match('/[a-z]/', $value[$i]) && !in_array('lowercase', $countedTypes)) {
-                $count ++ ;
+                $count++;
                 $countedTypes[] = 'lowercase';
             }
             if (preg_match('/[A-Z]/', $value[$i]) && !in_array('uppercase', $countedTypes)) {
-                $count ++ ;
+                $count++;
                 $countedTypes[] = 'uppercase';
             }
             if (preg_match('/[0-9]/', $value[$i]) && !in_array('number', $countedTypes)) {
-                $count ++ ;
+                $count++;
                 $countedTypes[] = 'number';
             }
             if (preg_match('/[@#$%+-=]/', $value[$i]) && !in_array('symbol', $countedTypes)) {
-                $count ++ ;
+                $count++;
                 $countedTypes[] = 'symbol';
             }
 

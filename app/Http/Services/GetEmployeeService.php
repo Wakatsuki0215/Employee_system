@@ -11,6 +11,7 @@ class GetEmployeeService
     {
         $employee = EmployeeMaster::find($data)->toArray();
         $affiliations = AffiliationMaster::all();
+
         return $response = [
             'employee' => $employee,
             'affiliations' => $affiliations,

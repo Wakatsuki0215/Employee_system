@@ -3,10 +3,6 @@
 namespace App\Http\Services;
 
 use App\Models\EmployeeMaster;
-use App\Models\AffiliationMaster;
-use App\Http\Requests\EmployeeRequest;
-use Carbon\Carbon;
-use Illuminate\Support\Facades\Hash;
 
 
 class PutEmployeeService
@@ -29,7 +25,6 @@ class PutEmployeeService
     $employee->updated_by = session('id') ;
     // end
 
-    // NOTE:変更予定の値をtoArrayで配列にする
     $array_employee = $employee->toArray();
 
     // 排他チェック(楽観)

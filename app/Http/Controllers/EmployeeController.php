@@ -10,7 +10,6 @@ use App\http\Services\PostEmployeeService;
 use App\http\Services\PutEmployeeService;
 use App\http\Services\GetEmployeeService;
 use App\http\Services\UpdatePasswordService;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 
@@ -31,15 +30,16 @@ class EmployeeController extends Controller
     public function new(GetEmployeeAddService $service)
     {
         $affiliations = $service->getAffiliation();
+
         return view('employee_add', ['affiliations' => $affiliations]);
     }
 
     // 詳細
     public function show(GetEmployeeService $service)
     {
-        $employee = $service->getEmployee(session('id'));
+        $response = $service->getEmployee(session('id'));
 
-        return view('employee_show', ['employee' => $employee]);
+        return view('employee_show', ['employee' => $response['employee'], 'affiliations' => $response['affiliations']]);
     }
 
     // 編集
@@ -60,7 +60,7 @@ class EmployeeController extends Controller
         $data = $request->all();
         $service->addEmployee($data);
 
-        return redirect('/employee_list')->with('success_message', '社員情報の登録が完了しました。');
+        return redirect('/employee_list')->with('success_message', '社員情報の登録しました。');
     }
 
     // 更新
@@ -83,8 +83,7 @@ class EmployeeController extends Controller
         $result = $service->updatePassword($id, $data);
 
         if($result){
-            return redirect('/employee_list')->with('success_message', 'パスワードの変更が完了しました。');
-
+            return redirect('/employee_list')->with('success_message', 'パスワードを更新しました。');
         }else{
             return redirect('/employee_list')->withErrors('他のユーザーが社員情報を実行中です。');
         }

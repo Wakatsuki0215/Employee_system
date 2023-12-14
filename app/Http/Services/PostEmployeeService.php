@@ -3,14 +3,12 @@
 namespace App\Http\Services;
 
 use App\Models\EmployeeMaster;
-use App\Models\AffiliationMaster;
-use App\Http\Requests\EmployeeRequest;
 use Illuminate\Support\Facades\Hash;
 
 
 class PostEmployeeService
 {
-  public function addEmployee(array $data)
+  public function addEmployee(array $data):void
   {
     // 社員情報登録 start
     $employee = new EmployeeMaster;
@@ -27,7 +25,7 @@ class PostEmployeeService
     $employee->status = $data['status'];
     $employee->password = Hash::make($data['password']);
     $employee->created_by = session('id') ;
-
+    $employee->updated_by = session('id') ;
     // end
 
     //保存

@@ -31,7 +31,7 @@
 <div class="container d-flex align-items-center justify-content-center p-3 mb-2 text-black search_box">
     <form action={{url('/employee_list')}} method="GET">
         <!-- 名前検索 -->
-        <!-- TODO:検索後入力を残す -->
+
         <label for="name">名前
             <input type="text" name="name" value="{{ isset($search['name']) ? $search['name'] : '' }}">
         </label>
@@ -40,17 +40,17 @@
         <label for="gender">性別
             <select name="gender" id="gender">
                 @foreach (\App\Enums\Gender::getGenders() as $value => $label)
-                <option value="{{ $value }}">{{ $label }}</option>
+                <option value="{{ $value }}" {{ $value == isset($search['gender']) ? 'selected' : '' }}>{{ $label }}</option>
                 @endforeach
             </select>
         </label>
-        <!-- データベースから取ってくる -->
+
         <!-- 所属検索 -->
         <label for="affiliation_id">所属
             <select name="affiliation_id" id="affiliation_id">
                 <option value=""></option>
                 @foreach ($affiliations as $item)
-                <option value="{{ $item->id }}">{{ $item->affiliation_name }}</option>
+                <option value="{{ $item->id }}" {{ $item->id == isset($search['affiliation_id']) ? 'selected' : '' }}>{{ $item->affiliation_name }}</option>
                 @endforeach
             </select>
         </label>
@@ -60,26 +60,24 @@
         <label for="role" data-toggle="modal">権限
             <select name="role" id="role">
                 @foreach (\App\Enums\Role::getRoles() as $value => $label)
-                <option value="{{ $value }}">{{ $label }}</option>
+                <option value="{{ $value }}" {{ $value == isset($search['role']) ? 'selected' : '' }}>{{ $label }}</option>
                 @endforeach
             </select>
         </label>
 
         <!-- 無効社員　チェック項目 -->
         <label for="status" data-toggle="modal">
-            <input type="checkbox" name="status" id="" value="disabled">
+            <input type="checkbox" name="status" id="status" {{ isset($search['status']) ? 'checked' : '' }}>
             無効を含む
         </label>
         @endif
         <!-- クリア・検索ボタン -->
-        <input type=reset class="btn btn-secondary search_button" value="クリア">
-        <input type=submit class="btn btn-primary search_button" value="検索">
+        <input type="reset" class="btn btn-secondary search_button" value="クリア">
+        <input type="submit" class="btn btn-primary search_button" value="検索">
     </form>
 </div>
 
 <!-- 新規登録画面　遷移ボタン -->
-<!-- TODO:一般の時非表示 -->
-
 <div class="container">
     <div class="row justify-content-between">
         <div class="count">
@@ -114,7 +112,7 @@
             <tr class={{ $employee->status ===  'disabled' ? 'disabled_line' : '' }}>
                 <td>{{ $employee->name }}</td>
                 <td>{{ \App\Enums\Gender::getGender($employee->gender) }}</td>
-                <td>{{ \App\Enums\Affiliation::getAffiliation($employee->affiliation_id) }}</td>
+                <td>{{ optional($employee->affiliation)->affiliation_name }}</td>
                 <td>{{ $employee->mail }}</td>
                 <td>{{ $employee->tel }}</td>
                 <!-- パスワードモーダル -->

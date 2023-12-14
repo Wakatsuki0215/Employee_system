@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Hash;
 
 class PostLoginService
 {
-    public function postLogin(array $data)
+    public function postLogin(array $data): bool
     {
         // DBからIDとパスワード取得
         $employee = EmployeeMaster::find($data['id']);

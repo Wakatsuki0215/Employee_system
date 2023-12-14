@@ -5,55 +5,55 @@
     <ul>
         <li>
             <label for="id">社員番号</label>
-            {{$employee['employee']->id}}
+            {{$employee['id']}}
         </li>
         <div class="row">
             <div class="col-sm">
                 <label for="name">名前</label>
-                {{$employee['employee']->name}}
+                {{$employee['name']}}
             </div>
             <div class="col-sm">
                 <label for="kana">ふりがな</label>
-                {{$employee['employee']->kana}}
+                {{$employee['kana']}}
             </div>
         </div>
         <div class="row">
             <div class="col-sm">
                 <label for="gender">性別</label>
-                {{\App\Enums\Gender::getGender($employee['employee']->gender)}}
+                {{\App\Enums\Gender::getGender($employee['gender'])}}
             </div>
             <div class="col-sm">
                 <label for="age">生年月日</label>
-                {{$employee['employee']->age}}
+                {{$employee['age']}}
             </div>
         </div>
         <li>
             <label for="postcode">郵便番号</label>
-            〒{{$employee['employee']->postcode}}
+            〒{{$employee['postcode']}}
         </li>
         <li>
             <label for="address">住所</label>
-            {{$employee['employee']->address}}
+            {{$employee['address']}}
         </li>
         <li>
             <label for="affiliation_id">所属</label>
-            {{\App\Enums\Affiliation::getAffiliation($employee['employee']->affiliation_id)}}
+			{{ optional($affiliations['affiliation_name']) }}
         </li>
         <li>
             <label for="mail">メールアドレス</label>
-            {{$employee['employee']->mail}}
+            {{$employee['mail']}}
         </li>
         <li>
             <label for="tel">電話番号</label>
-            {{$employee['employee']->tel}}
+            {{$employee['tel']}}
         </li>
         <li>
             <label for="role">管理権限</label>
-            {{\App\Enums\Role::getRole($employee['employee']->role)}}
+            {{\App\Enums\Role::getRole($employee['role'])}}
         </li>
         <li>
             <label for="status">ステータス</label>
-            {{\App\Enums\Status::getStatus($employee['employee']->status)}}
+            {{\App\Enums\Status::getStatus($employee['status'])}}
         </li>
     </ul>
 </div>
