@@ -41,8 +41,6 @@ class EmployeeMaster extends Authenticatable
         return $this->belongsTo(AffiliationMaster::class, 'affiliation_id');
     }
 
-
-
     /**
      * The attributes that should be hidden for serialization.
      *

@@ -38,7 +38,7 @@ class EmployeeController extends Controller
     {
         $response = $service->getEmployee(session('id'));
 
-        return view('employee_show', ['employee' => $response['employee'], 'affiliations' => $response['affiliations']]);
+        return view('employee_show', $response);
     }
 
     // 編集
@@ -46,7 +46,7 @@ class EmployeeController extends Controller
     {
         $response = $service->getEmployee($request->id);
 
-        return view('employee_edit', ['employee' => $response['employee'], 'affiliations' => $response['affiliations']]);
+        return view('employee_edit', $response);
     }
 
 

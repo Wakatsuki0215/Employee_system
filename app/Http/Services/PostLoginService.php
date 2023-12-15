@@ -21,7 +21,7 @@ class PostLoginService
         $employee->makeVisible(['password']);
             // Hash::checkでリクエストのパスワードとチェック
             if (Hash::check($data['password'], $employee->password)) {
-        // sessionにログイン情報を保持
+                // sessionにログイン情報を保持
                 session([
                     'id' => $employee->id,
                     'name' => $employee->name,

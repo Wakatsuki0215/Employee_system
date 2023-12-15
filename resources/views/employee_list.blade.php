@@ -60,7 +60,7 @@
         <label for="role" data-toggle="modal">権限
             <select name="role" id="role">
                 @foreach (\App\Enums\Role::getRoles() as $value => $label)
-                <option value="{{ $value }}" {{ isset($search['role']) && $value == isset($search['role']) ? 'selected' : '' }}>{{ $label }}</option>
+                <option value="{{ $value }}" {{ isset($search['role']) && disabled == isset($search['role']) ? 'selected' : '' }}>{{ $label }}</option>
                 @endforeach
             </select>
         </label>
