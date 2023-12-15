@@ -48,8 +48,8 @@
 			<label for="affiliation_id">所属</label>
 			<select name="affiliation_id">
 				<option value=""></option>
-				@foreach($affiliations as $key => $affiliation)
-				<option value="{{ $affiliation->id }}" {{ old('affiliation_id',isset($employee['affiliation_id']) && $employee['affiliation_id'] === $key ? 'selected' : '') }}>
+				@foreach($affiliations as $affiliation)
+				<option value="{{ $affiliation->id }}" {{ old('affiliation_id', isset($employee['affiliation_id']) && $employee['affiliation_id'] == $affiliation->id ? 'selected' : '') }}>
 					{{ $affiliation->affiliation_name }}
 				</option>
 				@endforeach

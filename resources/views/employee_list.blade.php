@@ -40,7 +40,7 @@
         <label for="gender">性別
             <select name="gender" id="gender">
                 @foreach (\App\Enums\Gender::getGenders() as $value => $label)
-                <option value="{{ $value }}" {{ $value == isset($search['gender']) ? 'selected' : '' }}>{{ $label }}</option>
+                <option value="{{ $value }}" {{ isset($search['gender']) && $value == $search['gender'] ? 'selected' : '' }}>{{ $label }}</option>
                 @endforeach
             </select>
         </label>
@@ -50,7 +50,7 @@
             <select name="affiliation_id" id="affiliation_id">
                 <option value=""></option>
                 @foreach ($affiliations as $item)
-                <option value="{{ $item->id }}" {{ $item->id == isset($search['affiliation_id']) ? 'selected' : '' }}>{{ $item->affiliation_name }}</option>
+                <option value="{{ $item->id }}" {{ isset($search['affiliation_id']) && $item->id == $search['affiliation_id'] ? 'selected' : '' }}>{{ $item->affiliation_name }}</option>
                 @endforeach
             </select>
         </label>
@@ -60,7 +60,7 @@
         <label for="role" data-toggle="modal">権限
             <select name="role" id="role">
                 @foreach (\App\Enums\Role::getRoles() as $value => $label)
-                <option value="{{ $value }}" {{ $value == isset($search['role']) ? 'selected' : '' }}>{{ $label }}</option>
+                <option value="{{ $value }}" {{ isset($search['role']) && $value == isset($search['role']) ? 'selected' : '' }}>{{ $label }}</option>
                 @endforeach
             </select>
         </label>
