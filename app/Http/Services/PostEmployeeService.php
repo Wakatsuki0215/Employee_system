@@ -25,6 +25,7 @@ class PostEmployeeService
         $employee->status = $data['status'];
         $employee->password = Hash::make($data['password']);
         $employee->created_by = session('id');
+        $employee->updated_by = session('id');
         // end
 
         //保存

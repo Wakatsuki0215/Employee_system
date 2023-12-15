@@ -13,7 +13,6 @@ class UpdatePasswordService
         // パスワード変更
         $employee->password = Hash::make($data['password']);
 
-        // TODO: 更新日時はlaravelが更新してくれている認識であっていますか？？
         $employee->updated_by = session('id');
         $array_employee = $employee->toArray();
 

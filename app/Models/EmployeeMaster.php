@@ -38,6 +38,13 @@ class EmployeeMaster extends Authenticatable
         'updated_at',
     ];
 
+    public function affiliation()
+    {
+        return $this->belongsTo(AffiliationMaster::class, 'affiliation_id');
+    }
+
+
+
     /**
      * The attributes that should be hidden for serialization.
      *
@@ -54,7 +61,6 @@ class EmployeeMaster extends Authenticatable
      * @var array<string, string>
      */
     protected $casts = [
-        'email_verified_at' => 'datetime',
         'updated_at' => 'datetime:Y-m-d H:i:s',
     ];
 }
