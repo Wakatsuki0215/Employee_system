@@ -37,7 +37,7 @@
         </li>
         <li>
             <label for="affiliation_id">所属</label>
-			{{ optional($affiliations['affiliation_name']) }}
+            {{ optional($affiliations->where('id', $employee['affiliation_id'])->first())->affiliation_name }}
         </li>
         <li>
             <label for="mail">メールアドレス</label>
