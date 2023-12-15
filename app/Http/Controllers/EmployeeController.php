@@ -81,9 +81,9 @@ class EmployeeController extends Controller
         $data = $request->all();
         $result = $service->updatePassword($id, $data);
 
-        if($result){
+        if ($result) {
             return redirect('/employee_list')->with('success_message', 'パスワードを更新しました。');
-        }else{
+        } else {
             return redirect('/employee_list')->withErrors('他のユーザーが社員情報を実行中です。');
         }
     }

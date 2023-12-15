@@ -35,6 +35,6 @@ final class Role extends Enum
             self::Admin => self::getRole(self::Admin),
             self::General => self::getRole(self::General),
         ];
-        return $isEmpty ? array_merge([0 => ''], $roles) : $roles;
+        return $isEmpty ? array_merge(['' => ''], $roles) : $roles;
     }
 }

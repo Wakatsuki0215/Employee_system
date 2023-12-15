@@ -165,5 +165,5 @@
     </div>
 </div>
 <div class="pagination justify-content-center">
-    {{$employees->links('pagination::bootstrap-5')}}
+    {{$employees->appends($search)->links('pagination::bootstrap-5')}}
 </div>
